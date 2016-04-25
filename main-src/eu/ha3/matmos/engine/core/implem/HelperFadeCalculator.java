@@ -18,6 +18,7 @@ public class HelperFadeCalculator
 	
 	private boolean foLast = true;
 	private boolean complete = true;
+    private boolean doneFadingOut = false;
 	private float fade = 0;
 	
 	public HelperFadeCalculator(ReferenceTime time)
@@ -36,6 +37,7 @@ public class HelperFadeCalculator
 		
 		this.foLast = false;
 		this.complete = false;
+        this.doneFadingOut = false;
 	}
 	
 	public void fadeOut(long durationMs)
@@ -49,6 +51,7 @@ public class HelperFadeCalculator
 		
 		this.foLast = true;
 		this.complete = false;
+        this.doneFadingOut = false;
 	}
 	
 	public float calculateFadeFactor()
@@ -63,6 +66,7 @@ public class HelperFadeCalculator
 			{
 				this.fade = 0f;
 				this.complete = true;
+                this.doneFadingOut = true;
 			}
 			else
 			{
@@ -71,6 +75,7 @@ public class HelperFadeCalculator
 				{
 					this.fade = 0f;
 					this.complete = true;
+                    this.doneFadingOut = true;
 				}
 			}
 		}
@@ -94,4 +99,9 @@ public class HelperFadeCalculator
 		
 		return this.fade;
 	}
+
+    public boolean isDoneFadingOut()
+    {
+        return this.doneFadingOut;
+    }
 }

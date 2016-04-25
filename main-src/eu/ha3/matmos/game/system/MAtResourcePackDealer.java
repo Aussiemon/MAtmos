@@ -1,14 +1,14 @@
 package eu.ha3.matmos.game.system;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.IResourcePack;
 import net.minecraft.client.resources.ResourcePackRepository;
 import net.minecraft.util.ResourceLocation;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 /*
 --filenotes-placeholder
@@ -21,9 +21,7 @@ public class MAtResourcePackDealer
 	
 	public List<ResourcePackRepository.Entry> findResourcePacks()
 	{
-		@SuppressWarnings("unchecked")
-		List<ResourcePackRepository.Entry> repo =
-			Minecraft.getMinecraft().getResourcePackRepository().getRepositoryEntries();
+		List<ResourcePackRepository.Entry> repo = Minecraft.getMinecraft().getResourcePackRepository().getRepositoryEntries();
 		
 		List<ResourcePackRepository.Entry> foundEntries = new ArrayList<ResourcePackRepository.Entry>();
 		
@@ -41,9 +39,7 @@ public class MAtResourcePackDealer
 	{
 		ResourcePackRepository rrr = Minecraft.getMinecraft().getResourcePackRepository();
 		
-		@SuppressWarnings("unchecked")
-		List<ResourcePackRepository.Entry> repo =
-			new ArrayList<ResourcePackRepository.Entry>(rrr.getRepositoryEntriesAll());
+		List<ResourcePackRepository.Entry> repo = new ArrayList<ResourcePackRepository.Entry>(rrr.getRepositoryEntriesAll());
 		repo.removeAll(rrr.getRepositoryEntries());
 		
 		List<ResourcePackRepository.Entry> foundEntries = new ArrayList<ResourcePackRepository.Entry>();

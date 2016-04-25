@@ -1,11 +1,5 @@
 package eu.ha3.matmos.game.gui;
 
-import java.io.File;
-
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiButton;
-import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.client.gui.ScaledResolution;
 import eu.ha3.matmos.expansions.Expansion;
 import eu.ha3.matmos.expansions.debugunit.ExpansionDebugUnit;
 import eu.ha3.matmos.expansions.debugunit.FolderResourcePackEditableEDU;
@@ -15,7 +9,12 @@ import eu.ha3.matmos.game.debug.SoundsJsonGenerator;
 import eu.ha3.matmos.game.system.IDontKnowHowToCode;
 import eu.ha3.matmos.game.system.MAtMod;
 import eu.ha3.matmos.game.user.VisualExpansionDebugging;
-import eu.ha3.mc.quick.chat.ChatColorsSimple;
+import java.io.File;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiButton;
+import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.gui.ScaledResolution;
+import net.minecraft.util.EnumChatFormatting;
 
 /*
 --filenotes-placeholder
@@ -41,11 +40,9 @@ public class MAtGuiExpansionDetails extends GuiScreen
 	{
 		drawGradientRect(0, 0, this.width, this.height, 0xF0000000, 0x90000000);
 		
-		drawCenteredString(
-			this.fontRendererObj,
-			ChatColorsSimple.COLOR_GOLD
-				+ "Dev mode: Viewing " + ChatColorsSimple.COLOR_YELLOW + ChatColorsSimple.THEN_ITALIC
-				+ this.expansion.getFriendlyName() + " (" + this.expansion.getName() + ")", this.width / 2, 4, 0xffffff);
+		drawCenteredString(this.fontRendererObj, EnumChatFormatting.GOLD + "Dev mode: Viewing " + EnumChatFormatting.YELLOW
+                + EnumChatFormatting.ITALIC + this.expansion.getFriendlyName() + " (" + this.expansion.getName() + ")",
+                this.width / 2, 4, 0xffffff);
 		
 		this.debug.onFrame(0f);
 		
@@ -58,7 +55,6 @@ public class MAtGuiExpansionDetails extends GuiScreen
 		return false;
 	}
 	
-	@SuppressWarnings("unchecked")
 	@Override
 	public void initGui()
 	{
@@ -70,7 +66,7 @@ public class MAtGuiExpansionDetails extends GuiScreen
 		
 		this.buttonList.add(new GuiButton(200, _GAP, h, 70, _UNIT, "Close"));
 		this.buttonList
-			.add(new GuiButton(201, _GAP * 2 + 70, h, 70, _UNIT, ChatColorsSimple.COLOR_GOLD + "Use in OSD"));
+			.add(new GuiButton(201, _GAP * 2 + 70, h, 70, _UNIT, EnumChatFormatting.GOLD + "Use in OSD"));
 		this.buttonList.add(new GuiButton(202, _GAP * 3 + 70 * 2, h, 70, _UNIT, "Reload file"));
 		if (this.mod.isEditorAvailable())
 		{
@@ -110,7 +106,6 @@ public class MAtGuiExpansionDetails extends GuiScreen
 			if (debugUnit != null)
 			{
 				PluggableIntoMAtmos plug = new PluggableIntoMAtmos(this.mod, this.expansion);
-				this.expansion.addPluggable(plug);
 				
 				Runnable editor = this.mod.instantiateRunnableEditor(plug);
 				if (editor != null)
@@ -120,17 +115,15 @@ public class MAtGuiExpansionDetails extends GuiScreen
 					if (debugUnit instanceof ReadOnlyJasonStringEDU)
 					{
 						// XXX Read only mode
-						this.mod.getChatter().printChat(
-							ChatColorsSimple.COLOR_RED
-								+ "Expansions inside ZIP files are not supported in this version.");
-						this.mod.getChatter().printChatShort(
-							ChatColorsSimple.COLOR_RED + "Please unzip the resource packs to be able to view them.");
+						this.mod.getChatter().printChat(EnumChatFormatting.RED,
+                                "Expansions inside ZIP files are not supported in this version.");
+						this.mod.getChatter().printChatShort(EnumChatFormatting.RED,
+                                "Please unzip the resource packs to be able to view them.");
 					}
 				}
 				else
 				{
-					this.mod.getChatter().printChat(
-						ChatColorsSimple.COLOR_RED + "Could not start editor for an unknown reason.");
+					this.mod.getChatter().printChat(EnumChatFormatting.RED, "Could not start editor for an unknown reason.");
 				}
 			}
 		}
@@ -151,8 +144,7 @@ public class MAtGuiExpansionDetails extends GuiScreen
 						{
 							new SoundsJsonGenerator(soundsFolder, jsonFile).run();
 							this.mod.getChatter().printChat("File generated in " + jsonFile.getAbsolutePath());
-							this.mod.getChatter().printChatShort(
-								"Changes will be applied next time Resource Packs are reloaded.");
+							this.mod.getChatter().printChatShort("Changes will be applied next time Resource Packs are reloaded.");
 						}
 						catch (Exception e)
 						{
@@ -162,13 +154,12 @@ public class MAtGuiExpansionDetails extends GuiScreen
 					}
 					else
 					{
-						this.mod
-							.getChatter().printChat(ChatColorsSimple.COLOR_RED + "Create the sounds/ folder first.");
+						this.mod.getChatter().printChat(EnumChatFormatting.RED, "Create the sounds/ folder first.");
 					}
 				}
 				else
 				{
-					this.mod.getChatter().printChat(ChatColorsSimple.COLOR_RED + "Create the minecraft/ folder first.");
+					this.mod.getChatter().printChat(EnumChatFormatting.RED, "Create the minecraft/ folder first.");
 				}
 			}
 		}

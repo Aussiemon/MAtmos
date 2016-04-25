@@ -42,21 +42,21 @@ public class Event extends Component implements EventInterface
 		this.pitchMax = pitchMax;
 		this.distance = distance;
 	}
-
+	
 	@Override
 	public void cacheSounds(IResourcePack resourcePack)
 	{
         List<String> toRemove = new ArrayList<String>();
-        for (String path : this.paths)
-        {
+		for (String path : this.paths)
+		{
             if (resourcePack.resourceExists(new ResourceLocation("minecraft", "sounds/" + path)))
-                this.relay.cacheSound(path);
+			    this.relay.cacheSound(path);
             else
             {
                 MAtLog.warning("File: " + path + " appears to be missing from: " + resourcePack.getPackName() + " [This sound will not be cached or played in-game]");
                 toRemove.add(path);
             }
-        }
+		}
         paths.removeAll(toRemove);
 	}
 	

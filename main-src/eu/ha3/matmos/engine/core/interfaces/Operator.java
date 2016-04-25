@@ -7,16 +7,56 @@ import java.util.Map;
 
 public enum Operator
 {
-		ALWAYS_FALSE("ALWAYS_FALSE", "><"),
-		ALWAYS_TRUE("ALWAYS_TRUE", "<>"),
-		EQUAL("EQUAL", "=="),
-		NOT_EQUAL("NOT_EQUAL", "!="),
-		GREATER("GREATER", ">"),
-		LESSER("LESSER", "<"),
-		GREATER_OR_EQUAL("GREATER_OR_EQUAL", ">="),
-		LESSER_OR_EQUAL("LESSER_OR_EQUAL", "<="),
-		IN_LIST("IN_LIST", "in"),
-		NOT_IN_LIST("NOT_IN_LIST", "!in");
+	ALWAYS_FALSE("ALWAYS_FALSE", "><") {
+		public boolean test(Object one, Object two) {
+			return false;
+		}
+	},
+	ALWAYS_TRUE("ALWAYS_TRUE", "<>") {
+		public boolean test(Object one, Object two) {
+			return true;
+		}
+	},
+	EQUAL("EQUAL", "==") {
+		public boolean test(Object one, Object two) {
+			return (one == null && two == null) || one.equals(two);
+		}
+	},
+	NOT_EQUAL("NOT_EQUAL", "!=") {
+		public boolean test(Object one, Object two) {
+			return !EQUAL.test(one, two);
+		}
+	},
+	GREATER("GREATER", ">") {
+		protected boolean testNumber(long one, long two) {
+			return one > two;
+		}
+	},
+	LESSER("LESSER", "<") {
+		protected boolean testNumber(long one, long two) {
+			return one < two;
+		}
+	},
+	GREATER_OR_EQUAL("GREATER_OR_EQUAL", ">=") {
+		protected boolean testNumber(long one, long two) {
+			return one >= two;
+		}
+	},
+	LESSER_OR_EQUAL("LESSER_OR_EQUAL", "<=") {
+		protected boolean testNumber(long one, long two) {
+			return one <= two;
+		}
+	},
+	IN_LIST("IN_LIST", "in") {
+		public boolean test(Object one, Object two) {
+			return false;
+		}
+	},
+	NOT_IN_LIST("NOT_IN_LIST", "!in") {
+		public boolean test(Object one, Object two) {
+			return false;
+		}
+	};
 	
 	private static final Map<String, Operator> fromSerializedForm = new HashMap<String, Operator>();
 	private static final Map<String, Operator> fromSymbol = new HashMap<String, Operator>();
@@ -85,5 +125,17 @@ public enum Operator
 			return Operator.ALWAYS_FALSE;
 		
 		return fromSymbol.get(symbol);
+	}
+	
+	public boolean test(Object one, Object two) {
+		if (one instanceof Number && two instanceof Number) {
+			return testNumber(((Number)one).longValue(), ((Number)two).longValue());
+		}
+		
+		return false;
+	}
+	
+	protected boolean testNumber(long one, long two) {
+		return false;
 	}
 }

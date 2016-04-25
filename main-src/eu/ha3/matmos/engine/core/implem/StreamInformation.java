@@ -107,8 +107,7 @@ public class StreamInformation extends MultistateComponent implements Simulated
 				{
 					this.token = this.relay.getNewStreamingToken();
 					
-					if (this.relay.setupStreamingToken(
-						this.token, this.path, this.volume, this.pitch, this.isLooping, this.usesPause))
+					if (this.relay.setupStreamingToken(this.token, this.path, this.volume, this.pitch, this.isLooping, this.usesPause))
 					{
 						this.initialized = true;
 						this.relay.startStreaming(this.token, this.fadeInTime);

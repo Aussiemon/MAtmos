@@ -1,11 +1,12 @@
 package eu.ha3.matmos.game.system;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
-
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.audio.SoundManager;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.ResourceLocation;
+
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 /*
 --filenotes-placeholder
@@ -14,7 +15,7 @@ import net.minecraft.util.ResourceLocation;
 public class SoundHelper implements SoundCapabilities
 {
 	protected SoundAccessor accessor;
-	protected Map<String, StreamingSound> streaming;
+	protected Map<String, NoAttenuationMovingSound> streaming;
 	
 	private float volumeModulator;
 	
@@ -23,8 +24,13 @@ public class SoundHelper implements SoundCapabilities
 	public SoundHelper(SoundAccessor accessor)
 	{
 		this.accessor = accessor;
-		this.streaming = new LinkedHashMap<String, StreamingSound>();
+		this.streaming = new LinkedHashMap<String, NoAttenuationMovingSound>();
 	}
+
+    public SoundManager getSoundManager()
+    {
+        return this.accessor.getSoundManager();
+    }
 	
 	@Override
 	public void playMono(String event, double xx, double yy, double zz, float volume, float pitch)
@@ -49,8 +55,7 @@ public class SoundHelper implements SoundCapabilities
 	
 	private void playUnattenuatedSound(double xx, double yy, double zz, String loc, float a, float b)
 	{
-		NoAttenuationSound nas =
-			new NoAttenuationSound(new ResourceLocation(loc), a, b, (float) xx, (float) yy, (float) zz);
+		NoAttenuationSound nas = new NoAttenuationSound(new ResourceLocation(loc), a, b, (float) xx, (float) yy, (float) zz);
 		
 		Minecraft.getMinecraft().getSoundHandler().playSound(nas);
 	}
@@ -61,15 +66,15 @@ public class SoundHelper implements SoundCapabilities
 	{
 		if (this.isInterrupt)
 			return;
-		
-		/*StreamingSound sound =
-			new StreamingSoundUsingAccessor(
-				this.accessor, path, volume * this.volumeModulator, pitch, isLooping, usesPause);
-		this.streaming.put(customName, sound);*/
+
+		String loc = path.replace(".ogg", "").replace('/', '.').replaceAll("[0-9]", "");
+		NoAttenuationMovingSound nams = new NoAttenuationMovingSound(new ResourceLocation(loc), volume, pitch, isLooping, usesPause);
+
+		this.streaming.put(customName, nams);
 	}
 	
 	@Override
-	public void playStreaming(String customName, int fadeIn)
+	public void playStreaming(String customName, float fadeIn)
 	{
 		if (this.isInterrupt)
 			return;
@@ -79,12 +84,18 @@ public class SoundHelper implements SoundCapabilities
 			IDontKnowHowToCode.warnOnce("Tried to play missing stream " + customName);
 			return;
 		}
-		
-		this.streaming.get(customName).play(fadeIn);
+
+		// Ensure previous sound is disposed of
+		this.streaming.get(customName).dispose();
+
+		NoAttenuationMovingSound copy = this.streaming.get(customName).copy();
+		this.streaming.put(customName, copy);
+        copy.play(fadeIn);
+		Minecraft.getMinecraft().getSoundHandler().playSound(copy);
 	}
 	
 	@Override
-	public void stopStreaming(String customName, int fadeOut)
+	public void stopStreaming(String customName, float fadeOut)
 	{
 		if (this.isInterrupt)
 			return;
@@ -94,8 +105,8 @@ public class SoundHelper implements SoundCapabilities
 			IDontKnowHowToCode.warnOnce("Tried to stop missing stream " + customName);
 			return;
 		}
-		
-		this.streaming.get(customName).stop(fadeOut);
+
+        this.streaming.get(customName).stop(fadeOut);
 	}
 	
 	@Override
@@ -106,7 +117,7 @@ public class SoundHelper implements SoundCapabilities
 		
 		for (StreamingSound sound : this.streaming.values())
 		{
-			sound.stop(0f);
+			sound.dispose();
 		}
 	}
 	
@@ -114,10 +125,10 @@ public class SoundHelper implements SoundCapabilities
 	public void applyVolume(float volumeMod)
 	{
 		this.volumeModulator = volumeMod;
-		for (StreamingSound sound : this.streaming.values())
-		{
-			sound.applyVolume(volumeMod);
-		}
+        for (StreamingSound sound : this.streaming.values())
+        {
+            sound.applyVolume(volumeMod);
+        }
 	}
 	
 	@Override

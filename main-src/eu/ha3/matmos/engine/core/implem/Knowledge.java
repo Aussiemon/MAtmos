@@ -36,8 +36,7 @@ public class Knowledge implements Evaluated, Simulated
 		@Override
 		public boolean listHas(String constantX, String value)
 		{
-			return Knowledge.this.possibilityMapped.containsKey(constantX) ? Knowledge.this.possibilityMapped.get(
-				constantX).listHas(value) : false;
+			return Knowledge.this.possibilityMapped.containsKey(constantX) ? Knowledge.this.possibilityMapped.get(constantX).listHas(value) : false;
 		}
 		
 		@Override
@@ -189,7 +188,7 @@ public class Knowledge implements Evaluated, Simulated
 	public void cacheSounds(ExpansionIdentity identity)
 	{
         IResourcePack resourcePack = identity.getPack();
-		for (EventInterface event : this.eventMapped.values())
+        for (EventInterface event : this.eventMapped.values())
 		{
 			event.cacheSounds(resourcePack);
 		}

@@ -4,7 +4,11 @@ import eu.ha3.easy.TimeStatistic;
 import eu.ha3.matmos.engine.core.implem.Knowledge;
 import eu.ha3.matmos.engine.core.implem.ProviderCollection;
 import eu.ha3.matmos.engine.core.implem.SystemClock;
-import eu.ha3.matmos.engine.core.interfaces.*;
+import eu.ha3.matmos.engine.core.interfaces.Data;
+import eu.ha3.matmos.engine.core.interfaces.Evaluated;
+import eu.ha3.matmos.engine.core.interfaces.EventInterface;
+import eu.ha3.matmos.engine.core.interfaces.ReferenceTime;
+import eu.ha3.matmos.engine.core.interfaces.Simulated;
 import eu.ha3.matmos.expansions.agents.LoadingAgent;
 import eu.ha3.matmos.expansions.agents.RawJasonLoadingAgent;
 import eu.ha3.matmos.expansions.debugunit.ExpansionDebugUnit;
@@ -17,15 +21,19 @@ import eu.ha3.matmos.game.data.abstractions.Collector;
 import eu.ha3.matmos.game.system.SoundAccessor;
 import eu.ha3.matmos.game.system.SoundHelperRelay;
 import eu.ha3.matmos.log.MAtLog;
-import eu.ha3.matmos.pluggable.PluggableIntoMinecraft;
 import eu.ha3.util.property.simple.ConfigProperty;
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.Locale;
+import java.util.Scanner;
+import java.util.Set;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.FolderResourcePack;
 import net.minecraft.util.ResourceLocation;
-
-import java.io.File;
-import java.io.IOException;
-import java.util.*;
 
 /* x-placeholder */
 
@@ -52,11 +60,9 @@ public class Expansion implements VolumeUpdatable, Stable, Simulated, Evaluated
 	
 	//
 	private LoadingAgent jasonDebugPush;
-	private List<PluggableIntoMinecraft> pluggables = new ArrayList<PluggableIntoMinecraft>();
 	
-	public Expansion(
-		ExpansionIdentity identity, Data data, Collector collector, SoundAccessor accessor,
-		VolumeContainer masterVolume, File configurationSource)
+	public Expansion(ExpansionIdentity identity, Data data, Collector collector, SoundAccessor accessor,
+                     VolumeContainer masterVolume, File configurationSource)
 	{
 		this.identity = identity;
 		this.masterVolume = masterVolume;
@@ -291,11 +297,6 @@ public class Expansion implements VolumeUpdatable, Stable, Simulated, Evaluated
 		this.capabilities.cleanUp();
 		newKnowledge();
 		setLoadingAgent(null);
-		
-		for (PluggableIntoMinecraft pluggable : this.pluggables)
-		{
-			pluggable.unplugged();
-		}
 	}
 	
 	@Override
@@ -404,17 +405,21 @@ public class Expansion implements VolumeUpdatable, Stable, Simulated, Evaluated
 			@Override
 			public String obtainJasonString()
 			{
+				//Solly edit - resource leak
+				Scanner sc = null;
 				try
 				{
-					// XXX does not handle XML 
-					return new Scanner(Expansion.this.identity.getPack().getInputStream(
-						Expansion.this.identity.getLocation())).useDelimiter("\\Z").next();
+					sc = new Scanner(Expansion.this.identity.getPack().getInputStream(Expansion.this.identity.getLocation()));
+					// XXX does not handle XML
+					return sc.useDelimiter("\\Z").next();
 				}
-				catch (IOException e)
+					catch (IOException e)
 				{
-					e.printStackTrace();
-					System.err.println("Jason unavailable.");
-					return "{}";
+						e.printStackTrace();
+						System.err.println("Jason unavailable.");
+						return "{}";
+				} finally {
+					if (sc != null) sc.close();
 				}
 			}
 		};
@@ -427,20 +432,19 @@ public class Expansion implements VolumeUpdatable, Stable, Simulated, Evaluated
 	
 	public String getInfo()
 	{
+		//Solly edit - resource leak
+		Scanner sc = null;
 		try
 		{
-			return new Scanner(this.identity.getPack().getInputStream(new ResourceLocation("matmos", "info.txt")))
-				.useDelimiter("\\Z").next();
+			sc = new Scanner(this.identity.getPack().getInputStream(new ResourceLocation("matmos", "info.txt")));
+			return sc.useDelimiter("\\Z").next();
 		}
-		catch (Exception e)
+			catch (Exception e)
 		{
-			e.printStackTrace();
-			return "Error while fetching info.txt";
+				e.printStackTrace();
+				return "Error while fetching info.txt";
+		} finally {
+			if (sc != null) sc.close();
 		}
-	}
-	
-	public void addPluggable(PluggableIntoMinecraft pluggable)
-	{
-		this.pluggables.add(pluggable);
 	}
 }

@@ -1,5 +1,14 @@
 package eu.ha3.matmos.editor;
 
+import eu.ha3.matmos.editor.edit.EditPanel;
+import eu.ha3.matmos.editor.filechooser.JasonFileChooser;
+import eu.ha3.matmos.editor.filechooser.OverwriteWarningJasonFileChooser;
+import eu.ha3.matmos.editor.interfaces.Editor;
+import eu.ha3.matmos.editor.interfaces.Window;
+import eu.ha3.matmos.editor.tree.ItemTreeBranch;
+import eu.ha3.matmos.editor.tree.ItemTreeNode;
+import eu.ha3.matmos.editor.tree.ItemTreeViewPanel;
+import eu.ha3.matmos.jsonformat.serializable.expansion.SerialRoot;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
@@ -10,7 +19,6 @@ import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
-
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -26,16 +34,6 @@ import javax.swing.JTabbedPane;
 import javax.swing.KeyStroke;
 import javax.swing.WindowConstants;
 import javax.swing.border.EmptyBorder;
-
-import eu.ha3.matmos.editor.edit.EditPanel;
-import eu.ha3.matmos.editor.filechooser.JasonFileChooser;
-import eu.ha3.matmos.editor.filechooser.OverwriteWarningJasonFileChooser;
-import eu.ha3.matmos.editor.interfaces.Editor;
-import eu.ha3.matmos.editor.interfaces.Window;
-import eu.ha3.matmos.editor.tree.ItemTreeBranch;
-import eu.ha3.matmos.editor.tree.ItemTreeNode;
-import eu.ha3.matmos.editor.tree.ItemTreeViewPanel;
-import eu.ha3.matmos.jsonformat.serializable.expansion.SerialRoot;
 
 /* 
 --filenotes-placeholder
@@ -368,11 +366,6 @@ public class EditorWindow extends JFrame implements Window
 			@Override
 			public void actionPerformed(ActionEvent e)
 			{
-				if (!EditorWindow.this.model.isPlugged())
-				{
-					showErrorPopup("Minecraft is unavailable; cannot push.");
-					return;
-				}
 				EditorWindow.this.model.minecraftPushCurrentState();
 			}
 		});
@@ -391,25 +384,11 @@ public class EditorWindow extends JFrame implements Window
 				
 				if (attemptToQuickSave())
 				{
-					if (EditorWindow.this.model.isPlugged())
-					{
-						EditorWindow.this.model.minecraftReloadFromDisk();
-					}
-					else
-					{
-						showErrorPopup("Save was successful, but Minecraft is unavailable; cannot push.");
-					}
+					EditorWindow.this.model.minecraftReloadFromDisk();
 				}
 				else
 				{
-					if (EditorWindow.this.model.isPlugged())
-					{
-						showErrorPopup("Saving was unsuccessful. Minecraft won't be reloaded.");
-					}
-					else
-					{
-						showErrorPopup("Saving was unsuccessful.");
-					}
+					showErrorPopup("Saving was unsuccessful.");
 				}
 			}
 		});

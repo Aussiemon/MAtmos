@@ -1,12 +1,12 @@
 package eu.ha3.matmos.game.data.modules;
 
+import eu.ha3.matmos.engine.core.interfaces.Data;
+import eu.ha3.matmos.game.data.abstractions.module.Module;
+import eu.ha3.matmos.game.data.abstractions.module.ModuleProcessor;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.passive.EntityHorse;
 import net.minecraft.entity.player.EntityPlayer;
-import eu.ha3.matmos.engine.core.interfaces.Data;
-import eu.ha3.matmos.game.data.abstractions.module.Module;
-import eu.ha3.matmos.game.data.abstractions.module.ModuleProcessor;
 
 /*
 --filenotes-placeholder
@@ -64,16 +64,20 @@ public class M__ride_horse extends ModuleProcessor implements Module
 		
 		setValue("health1k", (int) (ride.getHealth() * 1000));
 		setValue("leashed_to_player", ride.getLeashed() && ride.getLeashedToEntity() instanceof EntityPlayer);
+        // dag edit func_152119_ch() -> getOwnerId()
+		// Aussiemon reversed 1.8 -> 1.7.10
 		setValue(
 			"ridden_by_owner",
 			ride.riddenByEntity instanceof EntityPlayer
 				&& !ride.func_152119_ch().equals("")
-				&& ride.func_152119_ch().equals(((EntityPlayer) ride.riddenByEntity).getGameProfile().getId()));
+				&& ride.func_152119_ch().equals(((EntityPlayer) ride.riddenByEntity).getGameProfile().getId().toString()));
+        // dag edit func_152119_ch() -> getOwnerId()
+		// Aussiemon reversed 1.8 -> 1.7.10
 		setValue(
 			"leashed_to_owner",
 			ride.getLeashedToEntity() instanceof EntityPlayer
 				&& !ride.func_152119_ch().equals("")
-				&& ride.func_152119_ch().equals(((EntityPlayer) ride.getLeashedToEntity()).getGameProfile().getId()));
+				&& ride.func_152119_ch().equals(((EntityPlayer) ride.getLeashedToEntity()).getGameProfile().getId().toString()));
 		
 		if (ride.getLeashed() && ride.getLeashedToEntity() != null)
 		{
@@ -87,8 +91,12 @@ public class M__ride_horse extends ModuleProcessor implements Module
 		
 		// Server only?
 		setValue("temper", ride.getTemper());
+        // dag edit func_152119_ch() -> getOwnerId()
+		// Aussiemon reversed 1.8 -> 1.7.10
 		setValue("owner_uuid", ride.func_152119_ch());
 		setValue("reproduced", ride.getHasReproduced());
-		setValue("bred", ride.func_110205_ce());
+        // dag edit func_110205_ce() -> isBreeding() [this is probably wrong, not sure what 'bred' represents]
+		// Aussiemon reversed 1.8 -> 1.7.10
+        setValue("bred", ride.func_110205_ce());
 	}
 }

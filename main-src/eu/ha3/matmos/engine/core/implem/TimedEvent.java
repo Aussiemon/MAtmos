@@ -1,10 +1,11 @@
 package eu.ha3.matmos.engine.core.implem;
 
-import java.util.Random;
-
 import eu.ha3.matmos.engine.core.implem.abstractions.Provider;
 import eu.ha3.matmos.engine.core.interfaces.ReferenceTime;
 import eu.ha3.matmos.engine.core.interfaces.TimedEventInterface;
+import eu.ha3.matmos.jsonformat.serializable.expansion.SerialMachineEvent;
+
+import java.util.Random;
 
 /* x-placeholder */
 
@@ -22,9 +23,10 @@ public class TimedEvent implements TimedEventInterface
 	
 	private long nextPlayTime;
 	
-	public TimedEvent(
-		String event, Provider<Event> provider, float volMod, float pitchMod, float delayMin, float delayMax,
-		float delayStart)
+	public TimedEvent(Provider<Event> provider, SerialMachineEvent eelt) {
+		this(eelt.event, provider, eelt.vol_mod, eelt.pitch_mod, eelt.delay_min, eelt.delay_max, eelt.delay_start);
+	}
+	public TimedEvent(String event, Provider<Event> provider, float volMod, float pitchMod, float delayMin, float delayMax, float delayStart)
 	{
 		this.event = event;
 		this.provider = provider;

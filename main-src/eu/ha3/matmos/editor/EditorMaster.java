@@ -1,5 +1,19 @@
 package eu.ha3.matmos.editor;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonParser;
+import com.google.gson.stream.MalformedJsonException;
+import eu.ha3.matmos.editor.interfaces.Editor;
+import eu.ha3.matmos.editor.interfaces.Window;
+import eu.ha3.matmos.editor.tree.Selector;
+import eu.ha3.matmos.expansions.debugunit.ReadOnlyJasonStringEDU;
+import eu.ha3.matmos.jsonformat.serializable.expansion.SerialEvent;
+import eu.ha3.matmos.jsonformat.serializable.expansion.SerialRoot;
+import eu.ha3.matmos.pluggable.PluggableIntoMinecraft;
+import eu.ha3.matmos.tools.Jason;
+import eu.ha3.matmos.tools.JasonExpansions_Engine1Deserializer2000;
+
+import javax.swing.*;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileWriter;
@@ -8,35 +22,16 @@ import java.util.Collections;
 import java.util.Map;
 import java.util.Scanner;
 
-import javax.swing.UIManager;
-
-import com.google.gson.Gson;
-import com.google.gson.JsonParser;
-import com.google.gson.stream.MalformedJsonException;
-
-import eu.ha3.matmos.editor.interfaces.Editor;
-import eu.ha3.matmos.editor.interfaces.Window;
-import eu.ha3.matmos.editor.tree.Selector;
-import eu.ha3.matmos.engine.core.implem.ProviderCollection;
-import eu.ha3.matmos.expansions.debugunit.ReadOnlyJasonStringEDU;
-import eu.ha3.matmos.jsonformat.serializable.expansion.SerialEvent;
-import eu.ha3.matmos.jsonformat.serializable.expansion.SerialRoot;
-import eu.ha3.matmos.pluggable.PluggableIntoMinecraft;
-import eu.ha3.matmos.pluggable.UnpluggedListener;
-import eu.ha3.matmos.tools.Jason;
-import eu.ha3.matmos.tools.JasonExpansions_Engine1Deserializer2000;
-
 /*
 --filenotes-placeholder
 */
 
-public class EditorMaster implements Runnable, Editor, UnpluggedListener
+public class EditorMaster implements Runnable, Editor
 {
 	//private IEditorWindow __WINDOW;
 	private Window window__EventQueue;
 	
 	private final PluggableIntoMinecraft minecraft;
-	private boolean isUnplugged;
 	
 	private File file;
 	private File workingDirectory = new File(System.getProperty("user.dir"));
@@ -60,8 +55,6 @@ public class EditorMaster implements Runnable, Editor, UnpluggedListener
 		this.minecraft = minecraft;
 		if (minecraft != null)
 		{
-			minecraft.addUnpluggedListener(this);
-			
 			File fileIF = minecraft.getFileIfAvailable();
 			File workingDirectoryIF = minecraft.getWorkingDirectoryIfAvailable();
 			if (fileIF != null && workingDirectoryIF != null)
@@ -195,42 +188,60 @@ public class EditorMaster implements Runnable, Editor, UnpluggedListener
 	private void loadFile(File potentialFile) throws IOException, MalformedJsonException
 	{
 		flushFileAndSerial();
-		String jasonString = new Scanner(new FileInputStream(potentialFile)).useDelimiter("\\Z").next();
-		System.out.println(jasonString);
-		this.root = new JasonExpansions_Engine1Deserializer2000().jsonToSerial(jasonString);
-		this.hasModifiedContents = false;
-		updateFileAndContentsState();
+		
+		//Solly edit - resource leak
+		Scanner sc = null;
+		try {
+			sc = new Scanner(new FileInputStream(potentialFile));
+			String jasonString = sc.useDelimiter("\\Z").next();
+			System.out.println(jasonString);
+			this.root = new JasonExpansions_Engine1Deserializer2000().jsonToSerial(jasonString);
+			this.hasModifiedContents = false;
+			updateFileAndContentsState();
+		} finally {
+			if (sc != null) sc.close();
+		}
 	}
 	
 	private void mergeFile(File potentialFile) throws IOException, MalformedJsonException
 	{
-		String jasonString = new Scanner(new FileInputStream(potentialFile)).useDelimiter("\\Z").next();
-		System.out.println(jasonString);
-		SerialRoot mergeFrom = new JasonExpansions_Engine1Deserializer2000().jsonToSerial(jasonString);
+		//Solly edit - resource leak
+		Scanner sc = null;
 		
-		if (Collections.disjoint(this.root.condition.keySet(), mergeFrom.condition.keySet())
-			&& Collections.disjoint(this.root.dynamic.keySet(), mergeFrom.dynamic.keySet())
-			&& Collections.disjoint(this.root.event.keySet(), mergeFrom.event.keySet())
-			&& Collections.disjoint(this.root.list.keySet(), mergeFrom.list.keySet())
-			&& Collections.disjoint(this.root.machine.keySet(), mergeFrom.machine.keySet())
-			&& Collections.disjoint(this.root.set.keySet(), mergeFrom.set.keySet()))
-		{
-		}
-		else
-		{
-			showErrorPopup("The two expansions have elements in common.\n"
+		try {
+			sc = new Scanner(new FileInputStream(potentialFile));
+			String jasonString = sc.useDelimiter("\\Z").next();
+			System.out.println(jasonString);
+			SerialRoot mergeFrom = new JasonExpansions_Engine1Deserializer2000().jsonToSerial(jasonString);
+			if (Collections.disjoint(this.root.condition.keySet(), mergeFrom.condition.keySet())
+				&& Collections.disjoint(this.root.dynamic.keySet(), mergeFrom.dynamic.keySet())
+				&& Collections.disjoint(this.root.event.keySet(), mergeFrom.event.keySet())
+				&& Collections.disjoint(this.root.list.keySet(), mergeFrom.list.keySet())
+				&& Collections.disjoint(this.root.machine.keySet(), mergeFrom.machine.keySet())
+				&& Collections.disjoint(this.root.set.keySet(), mergeFrom.set.keySet()))
+			{
+			}
+			
+			else {
+				showErrorPopup("The two expansions have elements in common.\n"
 				+ "The elements in common will be overriden by the file you are currently importing for the merge.");
+			}
+			
+			this.root.condition.putAll(mergeFrom.condition);
+			this.root.dynamic.putAll(mergeFrom.dynamic);
+			this.root.event.putAll(mergeFrom.event);
+			this.root.list.putAll(mergeFrom.list);
+			this.root.machine.putAll(mergeFrom.machine);
+			this.root.set.putAll(mergeFrom.set);
+			this.hasModifiedContents = true;
+			updateFileAndContentsState();
+			
+		} 
+		
+		finally {
+			if (sc != null) sc.close();
+			
 		}
-		
-		this.root.condition.putAll(mergeFrom.condition);
-		this.root.dynamic.putAll(mergeFrom.dynamic);
-		this.root.event.putAll(mergeFrom.event);
-		this.root.list.putAll(mergeFrom.list);
-		this.root.machine.putAll(mergeFrom.machine);
-		this.root.set.putAll(mergeFrom.set);
-		
-		this.hasModifiedContents = true;
-		updateFileAndContentsState();
 	}
 	
 	private void updateFileAndContentsState()
@@ -252,9 +263,6 @@ public class EditorMaster implements Runnable, Editor, UnpluggedListener
 	@Override
 	public void minecraftReloadFromDisk()
 	{
-		if (!isPlugged())
-			return;
-		
 		this.minecraft.reloadFromDisk();
 	}
 	
@@ -263,16 +271,7 @@ public class EditorMaster implements Runnable, Editor, UnpluggedListener
 	{
 		return this.file != null;
 	}
-	
-	@Override
-	public ProviderCollection getProviderCollectionIfAvailable()
-	{
-		if (!isPlugged())
-			return null;
-		
-		return this.minecraft.getProviders();
-	}
-	
+
 	@Override
 	public File getWorkingDirectory()
 	{
@@ -300,9 +299,6 @@ public class EditorMaster implements Runnable, Editor, UnpluggedListener
 	@Override
 	public void minecraftPushCurrentState()
 	{
-		if (!isPlugged())
-			return;
-		
 		this.minecraft.pushJason(Jason.toJson(this.root));
 	}
 	
@@ -358,19 +354,6 @@ public class EditorMaster implements Runnable, Editor, UnpluggedListener
 		}
 		
 		return true;
-	}
-	
-	@Override
-	public void onUnpluggedEvent(PluggableIntoMinecraft pluggable)
-	{
-		this.isUnplugged = true;
-		this.window__EventQueue.disableMinecraftCapabilitites();
-	}
-	
-	@Override
-	public boolean isPlugged()
-	{
-		return isMinecraftControlled() && !this.isUnplugged;
 	}
 	
 	@Override
