@@ -44,8 +44,8 @@ public class MAtMod extends HaddonImpl implements SupportsFrameEvents, SupportsT
 	
 	// Identity
 	protected final String NAME = "MAtmos-UnofficialBeta";
-	protected final int VERSION = 30;
-	protected final String FOR = "1.9";
+	protected final int VERSION = 29;
+	protected final String FOR = "1.7.10";
 	protected final String ADDRESS = "http://matmos.ha3.eu";
 	protected final Identity identity = new HaddonIdentity(this.NAME, this.VERSION, this.FOR, this.ADDRESS);
 	

@@ -26,6 +26,6 @@ public class M__ply_action extends ModuleProcessor implements Module
 		setValue("swing_progress16", (int) Math.floor(player.swingProgress * 16));
 		setValue("swinging", player.swingProgress != 0);
 		setValue("fall_distance1k", (int) (player.fallDistance * 1000));
-		setValue("item_use_duration", player.getItemInUseCount());
+		setValue("item_use_duration", player.getItemInUseDuration());
 	}
 }
