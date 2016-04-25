@@ -209,8 +209,8 @@ public class MAtmosUtility
     }
     
     private static void playSound(float x, float y, float z, String soundName, float volume, float pitch) {
-        PositionedSoundRecord positionedsoundrecord = new AttenuationSound(new ResourceLocation(soundName), volume, pitch, false, 0, ISound.AttenuationType.LINEAR, x, y, z);
-        Minecraft.getMinecraft().getSoundHandler().playSound(positionedsoundrecord);
+        AttenuationSound attenuationsoundrecord = new AttenuationSound(new ResourceLocation(soundName), volume, pitch, false, 0, ISound.AttenuationType.LINEAR, x, y, z);
+        Minecraft.getMinecraft().getSoundHandler().playSound(attenuationsoundrecord);
     }
     
     /**

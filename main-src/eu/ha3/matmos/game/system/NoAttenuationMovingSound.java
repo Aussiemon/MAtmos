@@ -26,29 +26,31 @@ public class NoAttenuationMovingSound extends MovingSound implements StreamingSo
 	private float desiredPitch;
 	
 	protected NoAttenuationMovingSound(
-		ResourceLocation p_i45104_1_, HelperFadeCalculator fade, boolean isLooping, boolean usesPause)
+		ResourceLocation myResource, HelperFadeCalculator fade, boolean isLooping, boolean usesPause)
 	{
-		super(p_i45104_1_);
+		super(myResource);
 		this.attenuationType = ISound.AttenuationType.NONE;
-		
 		this.isLooping = isLooping;
 		this.repeat = isLooping;
-		
+		this.repeatDelay = 0;
+
 		this.usesPause = usesPause;
 	}
 	
 	protected NoAttenuationMovingSound(
-			ResourceLocation p_i45104_1_, float volume, float pitch, boolean isLooping, boolean usesPause)
+			ResourceLocation myResource, float volume, float pitch, boolean isLooping, boolean usesPause)
 		{
-			super(p_i45104_1_);
+			super(myResource);
 			this.attenuationType = ISound.AttenuationType.NONE;
-
 			this.isLooping = isLooping;
 			this.repeat = isLooping;
-			
-			this.pitch = pitch;
+			this.repeatDelay = 0;
+
+			this.desiredVolume = volume;
+			this.desiredPitch = pitch;
 			this.volume = volume;
-			
+			this.pitch = pitch;
+
 			this.usesPause = usesPause;
 		}
 	
