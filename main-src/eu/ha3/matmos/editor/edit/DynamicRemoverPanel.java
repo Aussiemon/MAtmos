@@ -5,10 +5,12 @@ import eu.ha3.matmos.jsonformat.serializable.expansion.SerialDynamic;
 import eu.ha3.matmos.jsonformat.serializable.expansion.SerialDynamicSheetIndex;
 
 import javax.swing.*;
-import java.awt.*;
+
+import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.List;
 
 /*
 --filenotes-placeholder
@@ -19,7 +21,7 @@ public class DynamicRemoverPanel extends JPanel
 {
 	private final IFlaggable parent;
 	private final SerialDynamic dynamic;
-	private JList list;
+	private JList<String> list;
 	
 	private ArrayList<String> things;
 	
@@ -37,7 +39,7 @@ public class DynamicRemoverPanel extends JPanel
 		JScrollPane scrollPane = new JScrollPane();
 		panel.add(scrollPane, BorderLayout.CENTER);
 		
-		this.list = new JList();
+		this.list = new JList<String>();
 		this.list.setVisibleRowCount(4);
 		scrollPane.setViewportView(this.list);
 		
@@ -58,8 +60,8 @@ public class DynamicRemoverPanel extends JPanel
 	
 	protected void removeSelected()
 	{
-		Object values[] = this.list.getSelectedValues();
-		if (values.length == 0)
+		List<String> values = this.list.getSelectedValuesList();
+		if (values.size() == 0)
 			return;
 		
 		int removedCount = 0;
@@ -93,7 +95,7 @@ public class DynamicRemoverPanel extends JPanel
 		this.list.setListData(this.things.toArray(new String[this.things.size()]));
 	}
 	
-	public JList getList()
+	public JList<String> getList()
 	{
 		return this.list;
 	}

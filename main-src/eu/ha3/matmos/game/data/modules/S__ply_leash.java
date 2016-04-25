@@ -33,13 +33,10 @@ public class S__ply_leash extends ModuleProcessor implements Module
 		final int distance = 20;
 		int count = 0;
 
-        // dag edit AxisAlignedBB.getBoundingBox(..) -> AxisAlignedBB.fromBounds(..)
-		// Aussiemon reversed 1.8 -> 1.7.10
-		
-		List<EntityLiving> var6 =
-			w.getEntitiesWithinAABB(EntityLiving.class, AxisAlignedBB.getBoundingBox(
-                    player.posX - distance, player.posY - distance, player.posZ - distance, player.posX + distance,
-                    player.posY + distance, player.posZ + distance));
+        List<EntityLiving> var6 =
+				w.getEntitiesWithinAABB(EntityLiving.class, AxisAlignedBB.getBoundingBox(
+					player.posX - distance, player.posY - distance, player.posZ - distance, player.posX + distance,
+					player.posY + distance, player.posZ + distance));
 		
 		if (var6 != null)
 		{

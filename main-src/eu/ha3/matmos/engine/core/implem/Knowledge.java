@@ -26,7 +26,7 @@ public class Knowledge implements Evaluated, Simulated
 	private final Map<String, Machine> machineMapped = new TreeMap<String, Machine>();
 	private final Map<String, Event> eventMapped = new TreeMap<String, Event>();
 	
-	private final SheetCommander sheetCommander = new SheetCommander() {
+	private final SheetCommander<String> sheetCommander = new SheetCommander<String>() {
 		@Override
 		public int version(SheetIndex sheetIndex)
 		{
@@ -40,7 +40,7 @@ public class Knowledge implements Evaluated, Simulated
 		}
 		
 		@Override
-		public Object get(SheetIndex sheetIndex)
+		public String get(SheetIndex sheetIndex)
 		{
 			return Knowledge.this.data.getSheet(sheetIndex.getSheet()).get(sheetIndex.getIndex());
 		}
@@ -85,7 +85,7 @@ public class Knowledge implements Evaluated, Simulated
 		return this.providerCollection;
 	}
 	
-	public SheetCommander obtainSheetCommander()
+	public SheetCommander<String> obtainSheetCommander()
 	{
 		return this.sheetCommander;
 	}

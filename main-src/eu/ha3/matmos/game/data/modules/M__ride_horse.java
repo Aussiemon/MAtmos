@@ -65,19 +65,16 @@ public class M__ride_horse extends ModuleProcessor implements Module
 		setValue("health1k", (int) (ride.getHealth() * 1000));
 		setValue("leashed_to_player", ride.getLeashed() && ride.getLeashedToEntity() instanceof EntityPlayer);
         // dag edit func_152119_ch() -> getOwnerId()
-		// Aussiemon reversed 1.8 -> 1.7.10
 		setValue(
-			"ridden_by_owner",
-			ride.riddenByEntity instanceof EntityPlayer
-				&& !ride.func_152119_ch().equals("")
-				&& ride.func_152119_ch().equals(((EntityPlayer) ride.riddenByEntity).getGameProfile().getId().toString()));
-        // dag edit func_152119_ch() -> getOwnerId()
-		// Aussiemon reversed 1.8 -> 1.7.10
-		setValue(
-			"leashed_to_owner",
-			ride.getLeashedToEntity() instanceof EntityPlayer
-				&& !ride.func_152119_ch().equals("")
-				&& ride.func_152119_ch().equals(((EntityPlayer) ride.getLeashedToEntity()).getGameProfile().getId().toString()));
+				"ridden_by_owner",
+				ride.riddenByEntity instanceof EntityPlayer
+					&& !ride.func_152119_ch().equals("")
+					&& ride.func_152119_ch().equals(((EntityPlayer) ride.riddenByEntity).getGameProfile().getId()));
+			setValue(
+				"leashed_to_owner",
+				ride.getLeashedToEntity() instanceof EntityPlayer
+					&& !ride.func_152119_ch().equals("")
+					&& ride.func_152119_ch().equals(((EntityPlayer) ride.getLeashedToEntity()).getGameProfile().getId()));
 		
 		if (ride.getLeashed() && ride.getLeashedToEntity() != null)
 		{
@@ -91,12 +88,8 @@ public class M__ride_horse extends ModuleProcessor implements Module
 		
 		// Server only?
 		setValue("temper", ride.getTemper());
-        // dag edit func_152119_ch() -> getOwnerId()
-		// Aussiemon reversed 1.8 -> 1.7.10
 		setValue("owner_uuid", ride.func_152119_ch());
 		setValue("reproduced", ride.getHasReproduced());
-        // dag edit func_110205_ce() -> isBreeding() [this is probably wrong, not sure what 'bred' represents]
-		// Aussiemon reversed 1.8 -> 1.7.10
-        setValue("bred", ride.func_110205_ce());
+		setValue("bred", ride.func_110205_ce());
 	}
 }

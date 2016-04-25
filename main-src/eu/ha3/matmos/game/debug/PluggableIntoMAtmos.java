@@ -1,12 +1,19 @@
 package eu.ha3.matmos.game.debug;
 
 import com.google.common.base.Optional;
+
+import eu.ha3.matmos.engine.core.implem.ProviderCollection;
+import eu.ha3.matmos.engine.core.interfaces.Data;
 import eu.ha3.matmos.expansions.Expansion;
 import eu.ha3.matmos.expansions.debugunit.FolderResourcePackEditableEDU;
 import eu.ha3.matmos.game.system.MAtMod;
 import eu.ha3.matmos.pluggable.PluggableIntoMinecraft;
-import java.io.File;
+
 import net.minecraft.util.EnumChatFormatting;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 /*
 --filenotes-placeholder
@@ -55,9 +62,8 @@ public class PluggableIntoMAtmos implements PluggableIntoMinecraft
 					Expansion expansion = opt.get();
 
 					PluggableIntoMAtmos.this.mod.getChatter().printChat(
-							EnumChatFormatting.AQUA,
-							"Reloading from editor state: " + expansion.getName() + " " + getTimestamp());
-							expansion.pushDebugJasonAndRefreshKnowledge(jasonString);
+						EnumChatFormatting.AQUA,
+						"Reloading from editor state: " + expansion.getName() + " " + getTimestamp());
 					expansion.pushDebugJasonAndRefreshKnowledge(jasonString);
 				}
 			}
@@ -79,7 +85,7 @@ public class PluggableIntoMAtmos implements PluggableIntoMinecraft
 
 					PluggableIntoMAtmos.this.mod.getChatter().printChat(
 							EnumChatFormatting.BLUE,
-							"Reloading from disk: ", expansion.getName() + " " + getTimestamp());
+						"Reloading from disk: ", expansion.getName() + " " + getTimestamp());
 					expansion.refreshKnowledge();
 				}
 			}

@@ -18,6 +18,7 @@ import eu.ha3.mc.haddon.implem.HaddonImpl;
 import eu.ha3.mc.haddon.supporting.SupportsFrameEvents;
 import eu.ha3.mc.haddon.supporting.SupportsTickEvents;
 import eu.ha3.mc.quick.chat.Chatter;
+import net.minecraft.util.EnumChatFormatting;
 import eu.ha3.mc.quick.update.NotifiableHaddon;
 import eu.ha3.mc.quick.update.UpdateNotifier;
 import eu.ha3.util.property.simple.ConfigProperty;
@@ -29,12 +30,10 @@ import net.minecraft.client.resources.IReloadableResourceManager;
 import net.minecraft.client.resources.IResourceManager;
 import net.minecraft.client.resources.IResourceManagerReloadListener;
 import net.minecraft.entity.Entity;
-import net.minecraft.util.EnumChatFormatting;
 import paulscode.sound.SoundSystem;
 
 import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.Constructor;
 import java.util.*;
 
 /* x-placeholder */
@@ -45,16 +44,14 @@ public class MAtMod extends HaddonImpl implements SupportsFrameEvents, SupportsT
 	
 	// Identity
 	protected final String NAME = "MAtmos-UnofficialBeta";
-	protected final int VERSION = 29;
-	protected final String FOR = "1.7.10";
+	protected final int VERSION = 30;
+	protected final String FOR = "1.9";
 	protected final String ADDRESS = "http://matmos.ha3.eu";
-	
-	// Aussiemon: Could not find setPrefixString method in latest Identity.java, removed for now
 	protected final Identity identity = new HaddonIdentity(this.NAME, this.VERSION, this.FOR, this.ADDRESS);
 	
 	// NotifiableHaddon and UpdateNotifier
 	private final ConfigProperty config = new ConfigProperty();
-	private final Chatter chatter = new Chatter(this, "<MatMos> ");
+	private final Chatter chatter = new Chatter(this, "<MAtmos> ");
 	private final UpdateNotifier updateNotifier = new UpdateNotifier(this, "http://q.mc.ha3.eu/query/matmos-main-version-vn.json?ver=%d");
 	
 	// State
@@ -84,11 +81,10 @@ public class MAtMod extends HaddonImpl implements SupportsFrameEvents, SupportsT
 	@Override
 	public void onLoad()
 	{
-		util().registerPrivateGetter("getSoundManager", SoundHandler.class, 5, "field_147694_f", "f");
-		util().registerPrivateGetter("getSoundSystem", SoundManager.class, 4, "field_148620_e", "e");
-
-        // dag edit - update to 1.8 obf stuff
-		util().registerPrivateGetter("isInWeb", Entity.class, -1, "isInWeb", "field_70134_J", "H");
+		util().registerPrivateGetter("getSoundManager", SoundHandler.class, 5, "sndManager", "field_147694_f", "f");
+		util().registerPrivateGetter("getSoundSystem", SoundManager.class, 3, "sndHandler", "field_148622_c", "d");
+		
+		util().registerPrivateGetter("isInWeb", Entity.class, 30, "isInWeb", "field_70134_J", "E");
 		
 		((OperatorCaster) op()).setTickEnabled(true);
 		((OperatorCaster) op()).setFrameEnabled(true);
@@ -216,7 +212,8 @@ public class MAtMod extends HaddonImpl implements SupportsFrameEvents, SupportsT
 	@Override
 	public void onFrame(float semi)
 	{
-		if (!isActivated())
+		//Solly edit - only play sounds whilst the game is running (and not paused)
+		if (!isActivated() || util().isGamePaused())
 			return;
 		
 		this.simulacrum.get().onFrame(semi);
@@ -290,9 +287,8 @@ public class MAtMod extends HaddonImpl implements SupportsFrameEvents, SupportsT
 					getChatter().printChat(
 							EnumChatFormatting.RED, "You are using an ", EnumChatFormatting.YELLOW, "Unofficial Beta", EnumChatFormatting.RED, " version of MAtmos.");
 					getChatter().printChatShort("By using this version, you understand that this mod isn't intended for " +
-							"actual game sessions, MAtmos may not work, might crash, the sound ambience is incomplete, etc. Use at your own risk. ");
+	                        "actual game sessions, MAtmos may not work, might crash, the sound ambience is incomplete, etc. Use at your own risk. ");
 					getChatter().printChatShort("Please check regularly for updates and resource pack updates.");
-					
 					if (warns > 0) getChatter().printChatShort("This message will appear ", EnumChatFormatting.YELLOW, warns, " more times.");
 				}
 				if (config.commit()) config.save();
@@ -500,41 +496,19 @@ public class MAtMod extends HaddonImpl implements SupportsFrameEvents, SupportsT
 		refresh();
 	}
 	
-	public boolean isEditorAvailable()
-	{
-		try
-		{
-			return Class.forName("eu.ha3.matmos.editor.EditorMaster", false, this.getClass().getClassLoader()) != null;
-		}
-		catch (Exception e)
-		{
-			return false;
-		}
+	public boolean isEditorAvailable() {
+		return util().isPresent("eu.ha3.matmos.editor.EditorMaster");
 	}
 	
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public Runnable instantiateRunnableEditor(PluggableIntoMinecraft pluggable)
-	{
-		try
-		{
-			Class editorClass =
-				Class.forName("eu.ha3.matmos.editor.EditorMaster", false, this.getClass().getClassLoader());
-			Constructor ctor = editorClass.getDeclaredConstructor(PluggableIntoMinecraft.class);
-			ctor.setAccessible(true);
-			
-			return (Runnable) ctor.newInstance(pluggable);
-		}
-		catch (Exception e)
-		{
-			return null;
-		}
+	public Runnable instantiateRunnableEditor(PluggableIntoMinecraft pluggable) {
+		return util().<Runnable>getInstantiator("eu.ha3.matmos.editor.EditorMaster", PluggableIntoMinecraft.class).instantiate(pluggable);
 	}
 
 	public Optional<Expansion> getExpansionEffort(String expansionName)
 	{
 		if (!isActivated() || !simulacrum.get().getExpansions().containsKey(expansionName))
 			return Optional.absent();
-		
+
 		return Optional.of(simulacrum.get().getExpansions().get(expansionName));
 	}
 }

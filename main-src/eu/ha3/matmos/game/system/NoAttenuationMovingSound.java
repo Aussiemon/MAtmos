@@ -1,12 +1,14 @@
 package eu.ha3.matmos.game.system;
 
-import eu.ha3.matmos.engine.core.implem.HelperFadeCalculator;
-import eu.ha3.matmos.engine.core.implem.SystemClock;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.ISound;
 import net.minecraft.client.audio.MovingSound;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.ResourceLocation;
+import eu.ha3.matmos.engine.core.implem.HelperFadeCalculator;
+
+import eu.ha3.matmos.engine.core.implem.SystemClock;
+import net.minecraft.client.audio.SoundCategory;
 
 /*
 --filenotes-placeholder
@@ -14,32 +16,49 @@ import net.minecraft.util.ResourceLocation;
 
 public class NoAttenuationMovingSound extends MovingSound implements StreamingSound
 {
+	private HelperFadeCalculator fade;
+	
+	private boolean isLooping;
 	private boolean usesPause;
+	
 	private final HelperFadeCalculator helper = new HelperFadeCalculator(new SystemClock());
 	private float desiredVolume;
 	private float desiredPitch;
-
-	protected NoAttenuationMovingSound(ResourceLocation myResource, float volume, float pitch, boolean isLooping, boolean usesPause)
+	
+	protected NoAttenuationMovingSound(
+		ResourceLocation p_i45104_1_, HelperFadeCalculator fade, boolean isLooping, boolean usesPause)
 	{
-		super(myResource);
-
+		super(p_i45104_1_);
 		this.attenuationType = ISound.AttenuationType.NONE;
+		
+		this.isLooping = isLooping;
 		this.repeat = isLooping;
-		this.repeatDelay = 0;
-
-		this.desiredVolume = volume;
-		this.desiredPitch = pitch;
-		this.volume = volume;
-		this.pitch = pitch;
-
+		
 		this.usesPause = usesPause;
 	}
+	
+	protected NoAttenuationMovingSound(
+			ResourceLocation p_i45104_1_, float volume, float pitch, boolean isLooping, boolean usesPause)
+		{
+			super(p_i45104_1_);
+			this.attenuationType = ISound.AttenuationType.NONE;
+
+			this.isLooping = isLooping;
+			this.repeat = isLooping;
+			
+			this.pitch = pitch;
+			this.volume = volume;
+			
+			this.usesPause = usesPause;
+		}
+	
+	
 	
 	public NoAttenuationMovingSound copy()
 	{
 		return new NoAttenuationMovingSound(this.getSoundLocation(), desiredVolume, desiredPitch, repeat, usesPause);
 	}
-
+	
 	@Override
 	public void update()
 	{

@@ -1,13 +1,13 @@
 package eu.ha3.matmos.game.data.modules;
 
+import net.minecraft.client.Minecraft;
+import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.MovingObjectPosition.MovingObjectType;
 import eu.ha3.matmos.engine.core.interfaces.Data;
 import eu.ha3.matmos.game.data.MODULE_CONSTANTS;
 import eu.ha3.matmos.game.data.abstractions.module.Module;
 import eu.ha3.matmos.game.data.abstractions.module.ModuleProcessor;
 import eu.ha3.matmos.game.system.MAtmosUtility;
-import net.minecraft.client.Minecraft;
-import net.minecraft.util.MovingObjectPosition;
-import net.minecraft.util.MovingObjectPosition.MovingObjectType;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -44,27 +44,19 @@ public class L__legacy_hitscan extends ModuleProcessor implements Module
 			
 			return;
 		}
-
-        // dag edits - getBlockPos().get..()
+		
 		setValue("mouse_over_something", mc.objectMouseOver.typeOfHit != MovingObjectType.MISS);
 		setValue("mouse_over_what_remapped", this.equiv.get(mc.objectMouseOver.typeOfHit));
 		setValue(
 			"block_as_number",
-			// Aussiemon edit 1.8 -> 1.7.10
 			mc.objectMouseOver.typeOfHit == MovingObjectType.BLOCK
 				? MAtmosUtility.legacyOf(MAtmosUtility.getBlockAt(
-//					mc.objectMouseOver.getBlockPos().getX(), mc.objectMouseOver.getBlockPos().getY(),
-//                    mc.objectMouseOver.getBlockPos().getZ()))
-				mc.objectMouseOver.blockX, mc.objectMouseOver.blockY, mc.objectMouseOver.blockZ))
-			: MODULE_CONSTANTS.LEGACY_NO_BLOCK_IN_THIS_CONTEXT);
-	
+					mc.objectMouseOver.blockX, mc.objectMouseOver.blockY, mc.objectMouseOver.blockZ))
+				: MODULE_CONSTANTS.LEGACY_NO_BLOCK_IN_THIS_CONTEXT);
 		setValue(
 			"meta_as_number",
-			// Aussiemon edit 1.8 -> 1.7.10
 			mc.objectMouseOver.typeOfHit == MovingObjectType.BLOCK ? MAtmosUtility.getMetaAt(
-//				mc.objectMouseOver.getBlockPos().getX(), mc.objectMouseOver.getBlockPos().getY(),
-//                    mc.objectMouseOver.getBlockPos().getZ(),
-					mc.objectMouseOver.blockX, mc.objectMouseOver.blockY, mc.objectMouseOver.blockZ,
-					MODULE_CONSTANTS.LEGACY_NO_BLOCK_OUT_OF_BOUNDS) : MODULE_CONSTANTS.LEGACY_NO_BLOCK_IN_THIS_CONTEXT);
+				mc.objectMouseOver.blockX, mc.objectMouseOver.blockY, mc.objectMouseOver.blockZ,
+				MODULE_CONSTANTS.LEGACY_NO_BLOCK_OUT_OF_BOUNDS) : MODULE_CONSTANTS.LEGACY_NO_BLOCK_IN_THIS_CONTEXT);
 	}
 }

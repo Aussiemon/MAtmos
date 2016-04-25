@@ -5,9 +5,15 @@ import eu.ha3.matmos.jsonformat.serializable.expansion.SerialSet;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
-import java.awt.*;
+
+import java.awt.BorderLayout;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.GridLayout;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -22,7 +28,7 @@ public class EditSet extends JPanel implements IFlaggable
 	private final SerialSet set;
 	private SetRemoverPanel activeSet;
 	private SetRemoverPanel inactiveSet;
-	private JList list;
+	private JList<String> list;
 	
 	public EditSet(EditPanel parentConstruct, SerialSet setConstruct)
 	{
@@ -86,7 +92,7 @@ public class EditSet extends JPanel implements IFlaggable
 		JScrollPane scrollPane = new JScrollPane();
 		panel.add(scrollPane, BorderLayout.CENTER);
 		
-		this.list = new JList();
+		this.list = new JList<String>();
 		scrollPane.setViewportView(this.list);
 		
 		JPanel panel_1 = new JPanel();
@@ -118,8 +124,8 @@ public class EditSet extends JPanel implements IFlaggable
 	
 	protected void addToActive()
 	{
-		Object values[] = this.list.getSelectedValues();
-		if (values.length == 0)
+		List<String> values = this.list.getSelectedValuesList();
+		if (values.size() == 0)
 			return;
 		
 		int addedCount = 0;
@@ -141,8 +147,8 @@ public class EditSet extends JPanel implements IFlaggable
 	
 	protected void addToInactive()
 	{
-		Object values[] = this.list.getSelectedValues();
-		if (values.length == 0)
+		List<String> values = this.list.getSelectedValuesList();
+		if (values.size() == 0)
 			return;
 		
 		int addedCount = 0;

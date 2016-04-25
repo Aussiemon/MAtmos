@@ -4,11 +4,13 @@ import eu.ha3.matmos.game.system.MAtMod;
 import eu.ha3.mc.gui.HDisplayStringProvider;
 import eu.ha3.mc.gui.HGuiSliderControl;
 import eu.ha3.mc.gui.HSliderListener;
+
+import net.minecraft.util.EnumChatFormatting;
+
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.audio.SoundCategory;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.client.audio.SoundCategory;
 
 import java.io.IOException;
 
@@ -187,7 +189,6 @@ public class MAtGuiMore extends GuiScreen
     }
 
     // dag edit + throws IOException
-    // Aussiemon reversed 1.8 -> 1.7.10
     @Override
     protected void mouseClicked(int par1, int par2, int par3)
     {

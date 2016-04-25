@@ -15,7 +15,7 @@ import java.util.Map;
 public abstract class ListerPanel extends JPanel implements ILister
 {
 	private JLabel titleLabel;
-	private JList list;
+	private JList<String> list;
 	private JPanel panel;
 	private JButton create;
 	private JPanel panel_1;
@@ -28,9 +28,9 @@ public abstract class ListerPanel extends JPanel implements ILister
 		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		add(scrollPane, BorderLayout.CENTER);
 		
-		this.list = new JList();
+		this.list = new JList<String>();
 		this.list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		this.list.setModel(new AbstractListModel() {
+		this.list.setModel(new AbstractListModel<String>() {
 			String[] values = new String[] {};
 			
 			@Override
@@ -40,7 +40,7 @@ public abstract class ListerPanel extends JPanel implements ILister
 			}
 			
 			@Override
-			public Object getElementAt(int index)
+			public String getElementAt(int index)
 			{
 				return this.values[index];
 			}

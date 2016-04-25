@@ -9,12 +9,14 @@ import eu.ha3.matmos.game.debug.SoundsJsonGenerator;
 import eu.ha3.matmos.game.system.IDontKnowHowToCode;
 import eu.ha3.matmos.game.system.MAtMod;
 import eu.ha3.matmos.game.user.VisualExpansionDebugging;
+
+import net.minecraft.util.EnumChatFormatting;
+
 import java.io.File;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.ScaledResolution;
-import net.minecraft.util.EnumChatFormatting;
 
 /*
 --filenotes-placeholder
@@ -61,7 +63,7 @@ public class MAtGuiExpansionDetails extends GuiScreen
 		final int _GAP = 2;
 		final int _UNIT = 20;
 		
-		int h = new ScaledResolution(this.mc, this.mc.displayWidth, this.mc.displayHeight).getScaledHeight();
+		int h = new ScaledResolution(this.mc, mc.displayWidth, mc.displayHeight).getScaledHeight();
 		h = h - _UNIT - _GAP;
 		
 		this.buttonList.add(new GuiButton(200, _GAP, h, 70, _UNIT, "Close"));

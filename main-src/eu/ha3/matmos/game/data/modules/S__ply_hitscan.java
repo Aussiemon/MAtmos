@@ -19,7 +19,7 @@ import java.util.Map;
 
 public class S__ply_hitscan extends ModuleProcessor implements Module
 {
-	private final Map<MovingObjectType, String> equiv = new HashMap<MovingObjectPosition.MovingObjectType, String>();
+	private final Map<MovingObjectType, String> equiv = new HashMap<MovingObjectType, String>();
 	
 	public S__ply_hitscan(Data data)
 	{
@@ -48,38 +48,28 @@ public class S__ply_hitscan extends ModuleProcessor implements Module
 		
 		setValue("mouse_over_something", mc.objectMouseOver.typeOfHit != MovingObjectType.MISS);
 		setValue("mouse_over_what", this.equiv.get(mc.objectMouseOver.typeOfHit));
-        // dag edit -> getBlockPos().get..()
-		// Aussiemon reversed 1.8 -> 1.7.10
+        
 		setValue(
 			"block",
 			mc.objectMouseOver.typeOfHit == MovingObjectType.BLOCK ? MAtmosUtility.getNameAt(
-//				mc.objectMouseOver.getBlockPos().getX(), mc.objectMouseOver.getBlockPos().getY(),
-//                    mc.objectMouseOver.getBlockPos().getZ(),
-					mc.objectMouseOver.blockX, mc.objectMouseOver.blockY, mc.objectMouseOver.blockZ,
-				MODULE_CONSTANTS.NO_BLOCK_OUT_OF_BOUNDS) : MODULE_CONSTANTS.NO_BLOCK_IN_THIS_CONTEXT);
-        // dag edit -> getBlockPos().get..()
-		// Aussiemon reversed 1.8 -> 1.7.10
+				mc.objectMouseOver.blockX, mc.objectMouseOver.blockY, mc.objectMouseOver.blockZ,
+					MODULE_CONSTANTS.NO_BLOCK_OUT_OF_BOUNDS) : MODULE_CONSTANTS.NO_BLOCK_IN_THIS_CONTEXT);
+        
 		setValue(
 			"meta",
 			mc.objectMouseOver.typeOfHit == MovingObjectType.BLOCK ? MAtmosUtility.getMetaAsStringAt(
-//				mc.objectMouseOver.getBlockPos().getX(), mc.objectMouseOver.getBlockPos().getY(),
-//                    mc.objectMouseOver.getBlockPos().getZ(),
-					mc.objectMouseOver.blockX, mc.objectMouseOver.blockY, mc.objectMouseOver.blockZ,
-				MODULE_CONSTANTS.NO_BLOCK_OUT_OF_BOUNDS) : MODULE_CONSTANTS.NO_BLOCK_IN_THIS_CONTEXT);
-        // dag edit -> getBlockPos().get..()
-		// Aussiemon reversed 1.8 -> 1.7.10
+				mc.objectMouseOver.blockX, mc.objectMouseOver.blockY, mc.objectMouseOver.blockZ,
+					MODULE_CONSTANTS.NO_BLOCK_OUT_OF_BOUNDS) : MODULE_CONSTANTS.NO_BLOCK_IN_THIS_CONTEXT);
+        
 		setValue(
 			"powermeta",
 			mc.objectMouseOver.typeOfHit == MovingObjectType.BLOCK ? MAtmosUtility.getPowerMetaAt(
-//				mc.objectMouseOver.getBlockPos().getX(), mc.objectMouseOver.getBlockPos().getY(),
-//                    mc.objectMouseOver.getBlockPos().getZ(),
-					mc.objectMouseOver.blockX, mc.objectMouseOver.blockY, mc.objectMouseOver.blockZ,
-				MODULE_CONSTANTS.NO_BLOCK_OUT_OF_BOUNDS) : MODULE_CONSTANTS.NO_BLOCK_IN_THIS_CONTEXT);
-        // dag edit -> getBlockPos().get..()
-		// Aussiemon reversed 1.8 -> 1.7.10
+				mc.objectMouseOver.blockX, mc.objectMouseOver.blockY, mc.objectMouseOver.blockZ,
+					MODULE_CONSTANTS.NO_BLOCK_OUT_OF_BOUNDS) : MODULE_CONSTANTS.NO_BLOCK_IN_THIS_CONTEXT);
+        
 		setValue(
-				"entity_id",
-				mc.objectMouseOver.typeOfHit == MovingObjectType.ENTITY ? EntityList
-					.getEntityID(mc.objectMouseOver.entityHit) : MODULE_CONSTANTS.NO_ENTITY);
+			"entity_id",
+			mc.objectMouseOver.typeOfHit == MovingObjectType.ENTITY ? EntityList
+				.getEntityID(mc.objectMouseOver.entityHit) : MODULE_CONSTANTS.NO_ENTITY);
 	}
 }

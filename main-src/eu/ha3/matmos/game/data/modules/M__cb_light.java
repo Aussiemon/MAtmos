@@ -23,22 +23,7 @@ public class M__cb_light extends ModuleProcessor implements Module
 	protected void doProcess()
 	{
 		World w = Minecraft.getMinecraft().theWorld;
-//        BlockPos playerPos = MAtmosUtility.getPlayerPosition();
-
-        /* dag edits
-         * Use BlockPos
-         * getSavedLightValue(..) -> getLightFor(..)
-         * EnumSkyBlock.Sky -> EnumSkyBlock.SKY
-         * EnumSkyBlock.Block -> EnumSkyBlock.BLOCK
-         * getBlockLightValue(..) -> getLight(..)
-         * canBlockSeeTheSky(..) -> canSeeSky(..)
-         */
-//        setValue("sky", w.getLightFor(EnumSkyBlock.SKY, playerPos));
-//		setValue("lamp", w.getLightFor(EnumSkyBlock.BLOCK, playerPos));
-//		setValue("final", w.getLight(playerPos));
-//        setValue("see_sky", w.canSeeSky(playerPos));
 		
-		// Aussiemon edit 1.8 -> 1.7.10
 		int x = MAtmosUtility.getPlayerX();
 		int y = MAtmosUtility.getPlayerY();
 		int z = MAtmosUtility.getPlayerZ();

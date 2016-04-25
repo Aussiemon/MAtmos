@@ -26,6 +26,7 @@ public class TimedEvent implements TimedEventInterface
 	public TimedEvent(Provider<Event> provider, SerialMachineEvent eelt) {
 		this(eelt.event, provider, eelt.vol_mod, eelt.pitch_mod, eelt.delay_min, eelt.delay_max, eelt.delay_start);
 	}
+	
 	public TimedEvent(String event, Provider<Event> provider, float volMod, float pitchMod, float delayMin, float delayMax, float delayStart)
 	{
 		this.event = event;

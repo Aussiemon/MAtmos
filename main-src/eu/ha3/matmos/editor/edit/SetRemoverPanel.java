@@ -3,9 +3,11 @@ package eu.ha3.matmos.editor.edit;
 import eu.ha3.matmos.editor.interfaces.IFlaggable;
 
 import javax.swing.*;
-import java.awt.*;
+
+import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -18,7 +20,7 @@ public class SetRemoverPanel extends JPanel
 {
 	private final IFlaggable parent;
 	private final Set<String> set;
-	private JList list;
+	private JList<String> list;
 	
 	public SetRemoverPanel(IFlaggable parent, Set<String> original)
 	{
@@ -34,7 +36,7 @@ public class SetRemoverPanel extends JPanel
 		JScrollPane scrollPane = new JScrollPane();
 		panel.add(scrollPane, BorderLayout.CENTER);
 		
-		this.list = new JList();
+		this.list = new JList<String>();
 		this.list.setVisibleRowCount(4);
 		scrollPane.setViewportView(this.list);
 		
@@ -55,8 +57,9 @@ public class SetRemoverPanel extends JPanel
 	
 	protected void removeSelected()
 	{
-		Object values[] = this.list.getSelectedValues();
-		if (values.length == 0)
+		//Solly edit list.getSelectedValues is deprecated
+		List<String> values = this.list.getSelectedValuesList();
+		if (values.size() == 0)
 			return;
 		
 		int removedCount = 0;
@@ -83,7 +86,7 @@ public class SetRemoverPanel extends JPanel
 		this.list.setListData(new TreeSet<String>(this.set).toArray(new String[this.set.size()]));
 	}
 	
-	public JList getList()
+	public JList<String> getList()
 	{
 		return this.list;
 	}

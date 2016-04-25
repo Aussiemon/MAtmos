@@ -25,7 +25,7 @@ public class EditCondition extends JPanel
 	private InstantTextField sheet;
 	private InstantTextField index;
 	private InstantTextField value;
-	private JComboBox comboBox;
+	private JComboBox<Operator> comboBox;
 	
 	public EditCondition(EditPanel parentConstruct, SerialCondition conditionConstruct)
 	{
@@ -99,7 +99,7 @@ public class EditCondition extends JPanel
 		gbc_index.gridy = 1;
 		activation.add(this.index, gbc_index);
 		
-		this.comboBox = new JComboBox();
+		this.comboBox = new JComboBox<Operator>();
 		this.comboBox.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0)
@@ -119,7 +119,7 @@ public class EditCondition extends JPanel
 		gbc_comboBox.gridx = 1;
 		gbc_comboBox.gridy = 2;
 		activation.add(this.comboBox, gbc_comboBox);
-		this.comboBox.setModel(new DefaultComboBoxModel(Operator.values()));
+		this.comboBox.setModel(new DefaultComboBoxModel<Operator>(Operator.values()));
 		
 		JLabel lblValue = new JLabel("Value");
 		GridBagConstraints gbc_lblValue = new GridBagConstraints();

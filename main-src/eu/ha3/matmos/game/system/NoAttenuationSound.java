@@ -10,9 +10,9 @@ import net.minecraft.util.ResourceLocation;
 
 public class NoAttenuationSound extends PositionedSoundRecord
 {
-	public NoAttenuationSound(ResourceLocation r, float a, float b, float c, float d, float e)
+	public NoAttenuationSound(ResourceLocation loc, float volume, float pitch, float x, float y, float z)
 	{
-		super(r, a, b, c, d, e);
+		super(loc, volume, pitch, x, y, z);
 		this.attenuationType = ISound.AttenuationType.NONE;
 	}
 }

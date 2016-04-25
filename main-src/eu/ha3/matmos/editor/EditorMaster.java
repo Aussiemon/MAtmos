@@ -188,7 +188,6 @@ public class EditorMaster implements Runnable, Editor
 	private void loadFile(File potentialFile) throws IOException, MalformedJsonException
 	{
 		flushFileAndSerial();
-		
 		//Solly edit - resource leak
 		Scanner sc = null;
 		try {
@@ -207,12 +206,12 @@ public class EditorMaster implements Runnable, Editor
 	{
 		//Solly edit - resource leak
 		Scanner sc = null;
-		
 		try {
 			sc = new Scanner(new FileInputStream(potentialFile));
 			String jasonString = sc.useDelimiter("\\Z").next();
 			System.out.println(jasonString);
 			SerialRoot mergeFrom = new JasonExpansions_Engine1Deserializer2000().jsonToSerial(jasonString);
+			
 			if (Collections.disjoint(this.root.condition.keySet(), mergeFrom.condition.keySet())
 				&& Collections.disjoint(this.root.dynamic.keySet(), mergeFrom.dynamic.keySet())
 				&& Collections.disjoint(this.root.event.keySet(), mergeFrom.event.keySet())
@@ -221,10 +220,10 @@ public class EditorMaster implements Runnable, Editor
 				&& Collections.disjoint(this.root.set.keySet(), mergeFrom.set.keySet()))
 			{
 			}
-			
-			else {
+			else
+			{
 				showErrorPopup("The two expansions have elements in common.\n"
-				+ "The elements in common will be overriden by the file you are currently importing for the merge.");
+					+ "The elements in common will be overriden by the file you are currently importing for the merge.");
 			}
 			
 			this.root.condition.putAll(mergeFrom.condition);
@@ -233,14 +232,11 @@ public class EditorMaster implements Runnable, Editor
 			this.root.list.putAll(mergeFrom.list);
 			this.root.machine.putAll(mergeFrom.machine);
 			this.root.set.putAll(mergeFrom.set);
+			
 			this.hasModifiedContents = true;
 			updateFileAndContentsState();
-			
-		} 
-		
-		finally {
+		} finally {
 			if (sc != null) sc.close();
-			
 		}
 	}
 	

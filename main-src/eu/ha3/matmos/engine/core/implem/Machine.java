@@ -25,9 +25,7 @@ public class Machine extends DependableComponent implements Simulated, Overrided
 	
 	private final Collection<String> dependencies;
 	
-	public Machine(
-		String name, Provider<Junction> provider, List<String> allow, List<String> restrict,
-		TimedEventInformation timed, StreamInformation stream)
+	public Machine(String name, Provider<Junction> provider, List<String> allow, List<String> restrict, TimedEventInformation timed, StreamInformation stream)
 	{
 		super(name);
 		this.provider = provider;

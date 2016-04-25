@@ -4,7 +4,7 @@ package eu.ha3.matmos.engine.core.interfaces;
 --filenotes-placeholder
 */
 
-public interface SheetCommander
+public interface SheetCommander<T>
 {
 	/**
 	 * Tells if the sheet index exists
@@ -28,7 +28,7 @@ public interface SheetCommander
 	 * @param sheetIndex
 	 * @return
 	 */
-	public Object get(SheetIndex sheetIndex);
+	public T get(SheetIndex sheetIndex);
 	
 	/**
 	 * Tells if a list has a certain value.

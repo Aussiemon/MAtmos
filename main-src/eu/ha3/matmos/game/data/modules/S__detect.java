@@ -72,12 +72,7 @@ public class S__detect implements Processor, PassOnceModule
 			this.entityCount[i] = new HashMap<Integer, Integer>();
 		}
 
-        // dag edit AxisAlignedBB.getBoundingBox(..) -> AxisAlignedBB.fromBounds(..)
-//        this.bbox = AxisAlignedBB.fromBounds(0, 0, 0, 0, 0, 0);
-		
-		// Aussiemon reversed 1.8 -> 1.7.10
 		this.bbox = AxisAlignedBB.getBoundingBox(0, 0, 0, 0, 0, 0);
-		
 	}
 	
 	private void refresh()
@@ -125,10 +120,6 @@ public class S__detect implements Processor, PassOnceModule
 		double y = mc.thePlayer.posY;
 		double z = mc.thePlayer.posZ;
 
-        // dag edit bbox.setBounds(..) -> bbox = AxisAlignedBB.fromBounds(..) ?
-//        this.bbox = AxisAlignedBB.fromBounds(x - this.maxel, y - this.maxel, z - this.maxel, x + this.maxel, y
-//            + this.maxel, z + this.maxel);
-		// Aussiemon reversed 1.8 -> 1.7.10
 		this.bbox.setBounds(x - this.maxel, y - this.maxel, z - this.maxel, x + this.maxel, y + this.maxel, z
 				+ this.maxel);
 		

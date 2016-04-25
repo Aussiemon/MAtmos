@@ -2,11 +2,13 @@ package eu.ha3.matmos.game.gui;
 
 import eu.ha3.matmos.expansions.Expansion;
 import eu.ha3.matmos.game.system.MAtMod;
+
+import net.minecraft.util.EnumChatFormatting;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.ScaledResolution;
-import net.minecraft.util.EnumChatFormatting;
 
 /*
 --filenotes-placeholder
@@ -57,14 +59,13 @@ public class MAtGuiExpansionInfo extends GuiScreen
 		return false;
 	}
 	
-	@SuppressWarnings("unchecked")
 	@Override
 	public void initGui()
 	{
 		final int _GAP = 2;
 		final int _UNIT = 20;
 		
-		int h = new ScaledResolution(this.mc, this.mc.displayWidth, this.mc.displayHeight).getScaledHeight();
+		int h = new ScaledResolution(this.mc, mc.displayWidth, mc.displayHeight).getScaledHeight();
 		h = h - _UNIT - _GAP;
 		
 		this.buttonList.add(new GuiButton(200, _GAP, h, 70, _UNIT, "Close"));

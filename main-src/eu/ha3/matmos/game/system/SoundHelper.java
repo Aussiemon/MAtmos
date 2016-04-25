@@ -38,7 +38,6 @@ public class SoundHelper implements SoundCapabilities
 		if (this.isInterrupt)
 			return;
 		
-		// XXX 2014-01-10 what is the last boolean?
 		playUnattenuatedSound(xx, yy, zz, event, volume * this.volumeModulator, pitch);
 	}
 	
@@ -53,11 +52,12 @@ public class SoundHelper implements SoundCapabilities
 		playUnattenuatedSound(e.posX, e.posY + 2048, e.posZ, event, volume * this.volumeModulator, pitch);
 	}
 	
-	private void playUnattenuatedSound(double xx, double yy, double zz, String loc, float a, float b)
+	private void playUnattenuatedSound(double xx, double yy, double zz, String loc, float volume, float pitch)
 	{
-		NoAttenuationSound nas = new NoAttenuationSound(new ResourceLocation(loc), a, b, (float) xx, (float) yy, (float) zz);
+		NoAttenuationSound nas = new NoAttenuationSound(new ResourceLocation(loc), volume, pitch, (float) xx, (float) yy, (float) zz);
 		
 		Minecraft.getMinecraft().getSoundHandler().playSound(nas);
+		
 	}
 	
 	@Override

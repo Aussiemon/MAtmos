@@ -20,7 +20,7 @@ public class Condition extends DependableComponent implements Visualized
 	private final Long constantLongX;
 	//private final Float constantFloatX;
 	
-	private final SheetCommander sheetCommander;
+	private final SheetCommander<String> sheetCommander;
 	
 	// Fixes a bug where conditions don't evaluate for sheet indexes that don't exist
 	// Required for ALWAYS_TRUE / ALWAYS_FALSE
@@ -29,7 +29,7 @@ public class Condition extends DependableComponent implements Visualized
 	
 	private final Collection<String> dependencies;
 	
-	public Condition(String name, SheetCommander sheetCommander, SheetIndex index, Operator operator, String constant)
+	public Condition(String name, SheetCommander<String> sheetCommander, SheetIndex index, Operator operator, String constant)
 	{
 		super(name);
 		this.sheetCommander = sheetCommander;
@@ -70,70 +70,22 @@ public class Condition extends DependableComponent implements Visualized
 		}
 	}
 	
-	private boolean testIfTrue()
-	{
-		try
-		{
-			String value = (String) this.sheetCommander.get(this.indexX);
-			Long longValue = LongFloatSimplificator.longOf(value);
-			//Float floatValue = LongFloatSimplificator.floatOf(this.constant);
-			
-			if (this.operatorX == Operator.ALWAYS_TRUE)
-				return true;
-			
-			else if (this.operatorX == Operator.IN_LIST)
-				return this.sheetCommander.listHas(this.constantX, value);
-			
-			else if (this.operatorX == Operator.NOT_IN_LIST)
-				return !this.sheetCommander.listHas(this.constantX, value);
-			
-			else if (longValue != null && this.constantLongX != null)
-			{
-				// if (both values are integers), then
-				
-				//
-				
-				// We treat the EQUAL operator separately if it's a number
-				// because we want to make sure the string resolve to
-				// the same number, even though they are different in string format.
-				
-				// Also unbox them so we can use the not equal / equal operators safely.
-				long lv = longValue;
-				long clx = this.constantLongX;
-				
-				if (this.operatorX == Operator.NOT_EQUAL)
-					return lv != clx;
-				
-				else if (this.operatorX == Operator.EQUAL)
-					return lv == clx;
-				
-				else if (this.operatorX == Operator.GREATER)
-					return lv > clx;
-				
-				else if (this.operatorX == Operator.GREATER_OR_EQUAL)
-					return lv >= clx;
-				
-				else if (this.operatorX == Operator.LESSER)
-					return lv < clx;
-				
-				else if (this.operatorX == Operator.LESSER_OR_EQUAL)
-					return lv <= clx;
-				
-				else
-					return false;
+	private boolean testIfTrue() {
+		try {
+			String value = sheetCommander.get(indexX);
+			switch (operatorX) {
+				case IN_LIST: return sheetCommander.listHas(constantX, value);
+				case NOT_IN_LIST: return !sheetCommander.listHas(constantX, value);
+				default: 
+					if (constantLongX != null) {
+						Long longValue = LongFloatSimplificator.longOf(value);
+						if (longValue != null) {
+							return operatorX.test(longValue, constantLongX);
+						}
+					}
+					return operatorX.test(value, constantX);
 			}
-			
-			else if (this.operatorX == Operator.NOT_EQUAL)
-				return !value.equals(this.constantX);
-			
-			else if (this.operatorX == Operator.EQUAL)
-				return value.equals(this.constantX);
-			
-			else
-				return false;
-		}
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			e.printStackTrace();
 			return false;
 		}
@@ -151,8 +103,8 @@ public class Condition extends DependableComponent implements Visualized
 	@Override
 	public String getFeed()
 	{
-		String value = (String) this.sheetCommander.get(this.indexX);
-		String op = this.operatorX.getSymbol();
+		String value = sheetCommander.get(this.indexX);
+		String op = operatorX.getSymbol();
 		
 		return this.indexX.getSheet() + ">" + this.indexX.getIndex() + ":[" + value + "] " + op + " " + this.constantX;
 	}

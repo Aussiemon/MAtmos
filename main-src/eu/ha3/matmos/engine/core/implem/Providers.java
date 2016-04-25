@@ -13,7 +13,7 @@ public class Providers implements ProviderCollection
 {
 	private final ReferenceTime time;
 	private final SoundRelay soundRelay;
-	private final SheetCommander commander;
+	private final SheetCommander<String> commander;
 	private final Provider<Condition> conditionProvider;
 	private final Provider<Junction> junctionProvider;
 	private final Provider<Machine> machineProvider;
@@ -21,7 +21,7 @@ public class Providers implements ProviderCollection
 	private final Provider<Dynamic> dynamicProvider;
 	
 	public Providers(
-		ReferenceTime time, SoundRelay soundRelay, SheetCommander commander, Provider<Condition> conditionProvider,
+		ReferenceTime time, SoundRelay soundRelay, SheetCommander<String> commander, Provider<Condition> conditionProvider,
 		Provider<Junction> junctionProvider, Provider<Machine> machineProvider, Provider<Event> eventProvider,
 		Provider<Dynamic> dynamicProvider)
 	{
@@ -49,7 +49,7 @@ public class Providers implements ProviderCollection
 	}
 	
 	@Override
-	public SheetCommander getSheetCommander()
+	public SheetCommander<String> getSheetCommander()
 	{
 		return this.commander;
 	}

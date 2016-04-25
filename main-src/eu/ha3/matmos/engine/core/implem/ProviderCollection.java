@@ -15,7 +15,7 @@ public interface ProviderCollection
 	
 	public SoundRelay getSoundRelay();
 	
-	public SheetCommander getSheetCommander();
+	public SheetCommander<String> getSheetCommander();
 	
 	public Provider<Condition> getCondition();
 	

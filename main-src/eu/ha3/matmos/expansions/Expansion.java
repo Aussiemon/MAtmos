@@ -410,14 +410,14 @@ public class Expansion implements VolumeUpdatable, Stable, Simulated, Evaluated
 				try
 				{
 					sc = new Scanner(Expansion.this.identity.getPack().getInputStream(Expansion.this.identity.getLocation()));
-					// XXX does not handle XML
+					// XXX does not handle XML 
 					return sc.useDelimiter("\\Z").next();
 				}
-					catch (IOException e)
+				catch (IOException e)
 				{
-						e.printStackTrace();
-						System.err.println("Jason unavailable.");
-						return "{}";
+					e.printStackTrace();
+					System.err.println("Jason unavailable.");
+					return "{}";
 				} finally {
 					if (sc != null) sc.close();
 				}
@@ -439,10 +439,10 @@ public class Expansion implements VolumeUpdatable, Stable, Simulated, Evaluated
 			sc = new Scanner(this.identity.getPack().getInputStream(new ResourceLocation("matmos", "info.txt")));
 			return sc.useDelimiter("\\Z").next();
 		}
-			catch (Exception e)
+		catch (Exception e)
 		{
-				e.printStackTrace();
-				return "Error while fetching info.txt";
+			e.printStackTrace();
+			return "Error while fetching info.txt";
 		} finally {
 			if (sc != null) sc.close();
 		}

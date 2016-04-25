@@ -3,6 +3,9 @@ package eu.ha3.matmos.game.system;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.audio.ISound;
+import net.minecraft.client.audio.PositionedSoundRecord;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.client.audio.SoundCategory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -12,13 +15,6 @@ import net.minecraft.world.World;
 
 public class MAtmosUtility
 {
-    private static final MAtMutableBlockPos position = new MAtMutableBlockPos();
-
-    public static MAtMutableBlockPos getPlayerPosition()
-    {
-        return position.of(getPlayerX(), getPlayerY(), getPlayerZ());
-    }
-
     public static int getPlayerX()
     {
         return (int) Math.floor(Minecraft.getMinecraft().thePlayer.posX);
@@ -70,18 +66,18 @@ public class MAtmosUtility
     }
 
     /**
-     * Gets the block at a certain location in the current world. This method is
-     * not safe against locations in undefined space.
-     *
-     * @param x
-     * @param y
-     * @param z
-     * @return
-     */
-    public static Block getBlockAt(int x, int y, int z)
-    {
-        return getBlockAt(Minecraft.getMinecraft().theWorld, x, y, z);
-    }
+	 * Gets the block at a certain location in the current world. This method is
+	 * not safe against locations in undefined space.
+	 * 
+	 * @param x
+	 * @param y
+	 * @param z
+	 * @return
+	 */
+	public static Block getBlockAt(int x, int y, int z)
+	{
+		return getBlockAt(Minecraft.getMinecraft().theWorld, x, y, z);
+	}
 
     /**
      * Gets the name of the block at a certain location in the current world. If
@@ -104,22 +100,20 @@ public class MAtmosUtility
     }
 
     /**
-     * Gets the block at a certain location in the given world. This method is
-     * not safe against locations in undefined space.
-     *
-     * @param world
-     * @param x
-     * @param y
-     * @param z
-     * @return
-     */
-    private static Block getBlockAt(World world, int x, int y, int z)
-    {
-    	// Aussiemon edit 1.8 -> 1.7.10
-//        return world.getBlockState(position.of(x, y, z)).getBlock();
-    	Block block = world.getBlock(x, y, z);
-    	return block;
-    }
+	 * Gets the block at a certain location in the given world. This method is
+	 * not safe against locations in undefined space.
+	 * 
+	 * @param world
+	 * @param x
+	 * @param y
+	 * @param z
+	 * @return
+	 */
+	private static Block getBlockAt(World world, int x, int y, int z)
+	{
+		Block block = world.getBlock(x, y, z);
+		return block;
+	}
 
     /**
      * Gets the name of the block at a certain location in the given world. This
@@ -196,7 +190,7 @@ public class MAtmosUtility
      */
     public static void playSound(String name, float nx, float ny, float nz, float volume, float pitch, int attenuation, float rollf)
     {
-        Minecraft.getMinecraft().theWorld.playSound(nx, ny, nz, name, volume, pitch, false);
+        playSound(nx, ny, nz, name, volume, pitch);
     }
 
     /**
@@ -211,9 +205,14 @@ public class MAtmosUtility
      */
     public static void playSound(String name, float nx, float ny, float nz, float volume, float pitch)
     {
-        Minecraft.getMinecraft().theWorld.playSound(nx, ny, nz, name, volume, pitch, false);
+        playSound(nx, ny, nz, name, volume, pitch);
     }
-
+    
+    private static void playSound(float x, float y, float z, String soundName, float volume, float pitch) {
+        PositionedSoundRecord positionedsoundrecord = new AttenuationSound(new ResourceLocation(soundName), volume, pitch, false, 0, ISound.AttenuationType.LINEAR, x, y, z);
+        Minecraft.getMinecraft().getSoundHandler().playSound(positionedsoundrecord);
+    }
+    
     /**
      * Returns the PowerMeta of the block at the specified coordinates.<br>
      * The PowerMeta is a string that combines the block name and the metadata
@@ -230,11 +229,6 @@ public class MAtmosUtility
         if (!isWithinBounds(y))
             return defaultIfFail;
 
-        // Aussiemon edit 1.8 -> 1.7.10
-//        Block block = getBlockAt(x, y, z);
-//        IBlockState blockState = Minecraft.getMinecraft().theWorld.getBlockState(position.of(x, y, z));
-//        return asPowerMeta(block, block.getMetaFromState(blockState));
-        
         try
 		{
 			return asPowerMeta(
@@ -309,14 +303,10 @@ public class MAtmosUtility
      */
     public static int getMetaAt(int x, int y, int z, int defaultIfFail)
     {
-        if (!isWithinBounds(y))
-            return defaultIfFail;
-
-        // Aussiemon edit 1.8 -> 1.7.10
-//        IBlockState blockState = Minecraft.getMinecraft().theWorld.getBlockState(position.of(x, y, z));
-//        return blockState.getBlock().getMetaFromState(blockState);
-        
-        try
+    	if (!isWithinBounds(y))
+			return defaultIfFail;
+		
+		try
 		{
 			return Minecraft.getMinecraft().theWorld.getBlockMetadata(x, y, z);
 		}
@@ -337,14 +327,10 @@ public class MAtmosUtility
      */
     public static String getMetaAsStringAt(int x, int y, int z, String defaultIfFail)
     {
-        if (!isWithinBounds(y))
-            return defaultIfFail;
-
-        // Aussiemon edit 1.8 -> 1.7.10
-//        IBlockState blockState = Minecraft.getMinecraft().theWorld.getBlockState(position.of(x, y, z));
-//        return Integer.toString(blockState.getBlock().getMetaFromState(blockState));
-        
-        try
+    	if (!isWithinBounds(y))
+			return defaultIfFail;
+		
+		try
 		{
 			return Integer.toString(Minecraft.getMinecraft().theWorld.getBlockMetadata(x, y, z));
 		}

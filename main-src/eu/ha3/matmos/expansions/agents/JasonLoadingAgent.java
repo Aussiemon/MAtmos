@@ -23,10 +23,10 @@ public class JasonLoadingAgent implements LoadingAgent
 			String jasonString = sc.useDelimiter("\\Z").next();
 			return new JasonExpansions_Engine1Deserializer2000().loadJson(jasonString, identity, knowledge);
 		}
-			catch (Exception e)
+		catch (Exception e)
 		{
-				e.printStackTrace();
-				return false;
+			e.printStackTrace();
+			return false;
 		} finally {
 			if (sc != null) sc.close();
 		}

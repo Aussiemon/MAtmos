@@ -17,11 +17,11 @@ public class Dynamic extends Component implements Evaluated, InformationContaine
 	
 	private final List<SheetIndex> indexes;
 	
-	private final SheetCommander sheetCommander;
+	private final SheetCommander<String> sheetCommander;
 	
 	private Collection<String> dependencies;
 	
-	public Dynamic(String name, SheetCommander sheetCommander, List<SheetIndex> indexes)
+	public Dynamic(String name, SheetCommander<String> sheetCommander, List<SheetIndex> indexes)
 	{
 		super(name);
 		this.sheetCommander = sheetCommander;

@@ -4,6 +4,7 @@ import eu.ha3.matmos.engine.core.implem.abstractions.Component;
 import eu.ha3.matmos.engine.core.interfaces.EventInterface;
 import eu.ha3.matmos.engine.core.interfaces.SoundRelay;
 import eu.ha3.matmos.log.MAtLog;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.IResourcePack;
 import net.minecraft.util.ResourceLocation;
 
@@ -46,13 +47,15 @@ public class Event extends Component implements EventInterface
 	@Override
 	public void cacheSounds(IResourcePack resourcePack)
 	{
+		//Solly edit - if it's not in the current resourcepack don't panic! It might be in a previous one.
+		IResourcePack def = Minecraft.getMinecraft().getResourcePackRepository().rprDefaultResourcePack;
         List<String> toRemove = new ArrayList<String>();
 		for (String path : this.paths)
 		{
-            if (resourcePack.resourceExists(new ResourceLocation("minecraft", "sounds/" + path)))
+			ResourceLocation location = new ResourceLocation("minecraft", "sounds/" + path);
+            if (resourcePack.resourceExists(location) || def.resourceExists(location)) {
 			    this.relay.cacheSound(path);
-            else
-            {
+            } else {
                 MAtLog.warning("File: " + path + " appears to be missing from: " + resourcePack.getPackName() + " [This sound will not be cached or played in-game]");
                 toRemove.add(path);
             }

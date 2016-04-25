@@ -44,8 +44,8 @@ public class EditMachine extends JPanel implements IFlaggable
     private JCheckBox chckbxIsLooping;
     private SetRemoverPanel activeSet;
     private SetRemoverPanel inactiveSet;
-    private JList list;
-    private JList timedEvents;
+    private JList<String> list;
+    private JList<String> timedEvents;
     private boolean eventBeingModified = true;
     private JSpinner startDelay;
     private JSpinner delayMax;
@@ -199,7 +199,7 @@ public class EditMachine extends JPanel implements IFlaggable
         JScrollPane scrollPane_1 = new JScrollPane();
         panel_3.add(scrollPane_1, BorderLayout.CENTER);
 
-        this.timedEvents = new JList();
+        this.timedEvents = new JList<String>();
         this.timedEvents.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         this.timedEvents.addListSelectionListener(new ListSelectionListener()
         {
@@ -620,7 +620,7 @@ public class EditMachine extends JPanel implements IFlaggable
         JScrollPane scrollPane = new JScrollPane();
         panel.add(scrollPane, BorderLayout.CENTER);
 
-        this.list = new JList();
+        this.list = new JList<String>();
         this.list.setVisibleRowCount(4);
         scrollPane.setViewportView(this.list);
 
@@ -712,7 +712,7 @@ public class EditMachine extends JPanel implements IFlaggable
                 acc = acc + 1;
             }
 
-            this.timedEvents.setListData(data.toArray());
+            this.timedEvents.setListData(data.toArray(new String[data.size()]));
         }
 
         if (this.machine.stream != null)
@@ -730,8 +730,8 @@ public class EditMachine extends JPanel implements IFlaggable
 
     protected void addToAllow()
     {
-        Object values[] = this.list.getSelectedValues();
-        if (values.length == 0)
+        List<String> values = this.list.getSelectedValuesList();
+        if (values.size() == 0)
             return;
 
         int addedCount = 0;
@@ -753,8 +753,8 @@ public class EditMachine extends JPanel implements IFlaggable
 
     protected void addToRestrict()
     {
-        Object values[] = this.list.getSelectedValues();
-        if (values.length == 0)
+        List<String> values = this.list.getSelectedValuesList();
+        if (values.size() == 0)
             return;
 
         int addedCount = 0;
