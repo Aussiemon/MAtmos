@@ -1,7 +1,8 @@
 package eu.ha3.matmos.editor.filechooser;
 
-import javax.swing.*;
 import java.io.File;
+
+import javax.swing.JOptionPane;
 
 /*
 --missing-placeholder

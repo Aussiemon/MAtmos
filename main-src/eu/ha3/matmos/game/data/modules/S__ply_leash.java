@@ -1,5 +1,8 @@
 package eu.ha3.matmos.game.data.modules;
 
+import java.util.Iterator;
+import java.util.List;
+
 import eu.ha3.matmos.engine.core.interfaces.Data;
 import eu.ha3.matmos.game.data.abstractions.module.Module;
 import eu.ha3.matmos.game.data.abstractions.module.ModuleProcessor;
@@ -8,9 +11,6 @@ import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
-
-import java.util.Iterator;
-import java.util.List;
 
 /*
 --filenotes-placeholder

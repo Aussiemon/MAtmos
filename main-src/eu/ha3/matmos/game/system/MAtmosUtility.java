@@ -3,12 +3,11 @@ package eu.ha3.matmos.game.system;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.audio.ISound;
 import net.minecraft.client.audio.PositionedSoundRecord;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.client.audio.SoundCategory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 
 /* x-placeholder */
@@ -209,8 +208,8 @@ public class MAtmosUtility
     }
     
     private static void playSound(float x, float y, float z, String soundName, float volume, float pitch) {
-        AttenuationSound attenuationsoundrecord = new AttenuationSound(new ResourceLocation(soundName), volume, pitch, false, 0, ISound.AttenuationType.LINEAR, x, y, z);
-        Minecraft.getMinecraft().getSoundHandler().playSound(attenuationsoundrecord);
+    	PositionedSoundRecord positionedsoundrecord = new PositionedSoundRecord(new ResourceLocation(soundName), volume, pitch, x, y, z);
+        Minecraft.getMinecraft().getSoundHandler().playSound(positionedsoundrecord);
     }
     
     /**

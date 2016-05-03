@@ -1,6 +1,8 @@
 package eu.ha3.matmos.editor;
 
-import javax.swing.*;
+import javax.swing.JFrame;
+import javax.swing.UIManager;
+import javax.swing.WindowConstants;
 
 /**
  * Utility lib to quickly format frames.

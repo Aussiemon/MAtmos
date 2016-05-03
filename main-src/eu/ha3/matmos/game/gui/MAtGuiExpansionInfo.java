@@ -2,13 +2,11 @@ package eu.ha3.matmos.game.gui;
 
 import eu.ha3.matmos.expansions.Expansion;
 import eu.ha3.matmos.game.system.MAtMod;
-
-import net.minecraft.util.EnumChatFormatting;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.ScaledResolution;
+import net.minecraft.util.EnumChatFormatting;
 
 /*
 --filenotes-placeholder
@@ -17,7 +15,6 @@ import net.minecraft.client.gui.ScaledResolution;
 public class MAtGuiExpansionInfo extends GuiScreen
 {
 	private final MAtGuiMenu parentScreen;
-	@SuppressWarnings("unused")
 	private final MAtMod mod;
 	private final Expansion expansion;
 	

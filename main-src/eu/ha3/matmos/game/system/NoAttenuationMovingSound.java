@@ -1,14 +1,12 @@
 package eu.ha3.matmos.game.system;
 
+import eu.ha3.matmos.engine.core.implem.HelperFadeCalculator;
+import eu.ha3.matmos.engine.core.implem.SystemClock;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.ISound;
 import net.minecraft.client.audio.MovingSound;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.ResourceLocation;
-import eu.ha3.matmos.engine.core.implem.HelperFadeCalculator;
-
-import eu.ha3.matmos.engine.core.implem.SystemClock;
-import net.minecraft.client.audio.SoundCategory;
 
 /*
 --filenotes-placeholder
@@ -16,33 +14,18 @@ import net.minecraft.client.audio.SoundCategory;
 
 public class NoAttenuationMovingSound extends MovingSound implements StreamingSound
 {
-	private HelperFadeCalculator fade;
-	
-	private boolean isLooping;
 	private boolean usesPause;
-	
 	private final HelperFadeCalculator helper = new HelperFadeCalculator(new SystemClock());
 	private float desiredVolume;
 	private float desiredPitch;
 	
-	protected NoAttenuationMovingSound(
-		ResourceLocation myResource, HelperFadeCalculator fade, boolean isLooping, boolean usesPause)
-	{
-		super(myResource);
-		this.attenuationType = ISound.AttenuationType.NONE;
-		this.isLooping = isLooping;
-		this.repeat = isLooping;
-		this.repeatDelay = 0;
-
-		this.usesPause = usesPause;
-	}
 	
 	protected NoAttenuationMovingSound(
 			ResourceLocation myResource, float volume, float pitch, boolean isLooping, boolean usesPause)
 		{
 			super(myResource);
+			
 			this.attenuationType = ISound.AttenuationType.NONE;
-			this.isLooping = isLooping;
 			this.repeat = isLooping;
 			this.repeatDelay = 0;
 

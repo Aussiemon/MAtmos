@@ -1,5 +1,8 @@
 package eu.ha3.matmos.game.user;
 
+import org.apache.commons.lang3.ArrayUtils;
+import org.lwjgl.input.Keyboard;
+
 import eu.ha3.easy.TimeStatistic;
 import eu.ha3.matmos.game.gui.MAtGuiMenu;
 import eu.ha3.matmos.game.system.MAtMod;
@@ -13,8 +16,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.util.EnumChatFormatting;
-import org.apache.commons.lang3.ArrayUtils;
-import org.lwjgl.input.Keyboard;
 
 /* x-placeholder */
 

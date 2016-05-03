@@ -1,9 +1,19 @@
 package eu.ha3.matmos.expansions;
 
+import java.io.File;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.commons.io.IOUtils;
+
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+
 import eu.ha3.matmos.engine.core.interfaces.Data;
 import eu.ha3.matmos.expansions.agents.JasonLoadingAgent;
 import eu.ha3.matmos.expansions.agents.LegacyXMLLoadingAgent;
@@ -15,15 +25,8 @@ import eu.ha3.matmos.game.system.SoundAccessor;
 import eu.ha3.matmos.log.MAtLog;
 import eu.ha3.mc.haddon.supporting.SupportsFrameEvents;
 import eu.ha3.mc.haddon.supporting.SupportsTickEvents;
-import java.io.File;
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import net.minecraft.client.resources.ResourcePackRepository;
 import net.minecraft.util.ResourceLocation;
-import org.apache.commons.io.IOUtils;
 
 /* x-placeholder */
  

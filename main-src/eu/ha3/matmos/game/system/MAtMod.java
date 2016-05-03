@@ -1,6 +1,15 @@
 package eu.ha3.matmos.game.system;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+
 import com.google.common.base.Optional;
+
 import eu.ha3.easy.StopWatchStatistic;
 import eu.ha3.easy.TimeStatistic;
 import eu.ha3.matmos.expansions.Expansion;
@@ -18,7 +27,6 @@ import eu.ha3.mc.haddon.implem.HaddonImpl;
 import eu.ha3.mc.haddon.supporting.SupportsFrameEvents;
 import eu.ha3.mc.haddon.supporting.SupportsTickEvents;
 import eu.ha3.mc.quick.chat.Chatter;
-import net.minecraft.util.EnumChatFormatting;
 import eu.ha3.mc.quick.update.NotifiableHaddon;
 import eu.ha3.mc.quick.update.UpdateNotifier;
 import eu.ha3.util.property.simple.ConfigProperty;
@@ -30,11 +38,8 @@ import net.minecraft.client.resources.IReloadableResourceManager;
 import net.minecraft.client.resources.IResourceManager;
 import net.minecraft.client.resources.IResourceManagerReloadListener;
 import net.minecraft.entity.Entity;
+import net.minecraft.util.EnumChatFormatting;
 import paulscode.sound.SoundSystem;
-
-import java.io.File;
-import java.io.IOException;
-import java.util.*;
 
 /* x-placeholder */
 

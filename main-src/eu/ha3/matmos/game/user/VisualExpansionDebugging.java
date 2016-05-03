@@ -1,5 +1,15 @@
 package eu.ha3.matmos.game.user;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.TreeMap;
+
+import org.lwjgl.opengl.GL11;
+
 import eu.ha3.matmos.engine.core.implem.Junction;
 import eu.ha3.matmos.engine.core.implem.Machine;
 import eu.ha3.matmos.engine.core.implem.ProviderCollection;
@@ -12,9 +22,6 @@ import eu.ha3.mc.haddon.supporting.SupportsFrameEvents;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.ScaledResolution;
-import org.lwjgl.opengl.GL11;
-
-import java.util.*;
 
 /*
 --filenotes-placeholder
@@ -73,7 +80,6 @@ public class VisualExpansionDebugging implements SupportsFrameEvents
 		GL11.glPopMatrix();
 	}
 	
-	@SuppressWarnings("unused")
 	private void link(Distances reliables, int xR, int yR, Distances dependables, int xD, int yD)
 	{
 		for (String name : dependables.keySet())
@@ -95,7 +101,6 @@ public class VisualExpansionDebugging implements SupportsFrameEvents
 		}
 	}
 	
-	@SuppressWarnings("unused")
 	private void link(
 		Distances reliables, int xR, int yR, Collection<String> dependencies, int xD, int yDapplied, boolean right)
 	{

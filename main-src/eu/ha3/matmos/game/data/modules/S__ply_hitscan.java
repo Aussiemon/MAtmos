@@ -1,5 +1,8 @@
 package eu.ha3.matmos.game.data.modules;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import eu.ha3.matmos.engine.core.interfaces.Data;
 import eu.ha3.matmos.game.data.MODULE_CONSTANTS;
 import eu.ha3.matmos.game.data.abstractions.module.Module;
@@ -7,11 +10,7 @@ import eu.ha3.matmos.game.data.abstractions.module.ModuleProcessor;
 import eu.ha3.matmos.game.system.MAtmosUtility;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.EntityList;
-import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.MovingObjectPosition.MovingObjectType;
-
-import java.util.HashMap;
-import java.util.Map;
 
 /*
 --filenotes-placeholder

@@ -1,5 +1,8 @@
 package eu.ha3.matmos.game.data.abstractions.scanner;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import eu.ha3.matmos.engine.core.interfaces.Data;
 import eu.ha3.matmos.game.data.abstractions.module.ExternalStringCountModule;
 import eu.ha3.matmos.game.data.abstractions.module.PassOnceModule;
@@ -7,9 +10,6 @@ import eu.ha3.matmos.game.data.abstractions.module.ThousandStringCountModule;
 import eu.ha3.matmos.game.system.MAtmosUtility;
 import eu.ha3.matmos.log.MAtLog;
 import net.minecraft.client.Minecraft;
-
-import java.util.HashSet;
-import java.util.Set;
 
 /*
 --filenotes-placeholder

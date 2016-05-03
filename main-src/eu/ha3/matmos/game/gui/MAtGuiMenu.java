@@ -1,21 +1,22 @@
 package eu.ha3.matmos.game.gui;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import eu.ha3.matmos.expansions.Expansion;
 import eu.ha3.matmos.expansions.volume.VolumeUpdatable;
 import eu.ha3.matmos.game.system.MAtMod;
 import eu.ha3.mc.gui.HDisplayStringProvider;
 import eu.ha3.mc.gui.HGuiSliderControl;
 import eu.ha3.mc.gui.HSliderListener;
-
-import net.minecraft.util.EnumChatFormatting;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.GuiScreenResourcePacks;
-
-import java.io.IOException;
-import java.util.*;
+import net.minecraft.util.EnumChatFormatting;
 
 /*
 --filenotes-placeholder

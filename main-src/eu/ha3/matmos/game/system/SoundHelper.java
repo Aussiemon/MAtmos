@@ -1,12 +1,12 @@
 package eu.ha3.matmos.game.system;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.SoundManager;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.ResourceLocation;
-
-import java.util.LinkedHashMap;
-import java.util.Map;
 
 /*
 --filenotes-placeholder

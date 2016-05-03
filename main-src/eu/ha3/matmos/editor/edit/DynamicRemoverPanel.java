@@ -1,16 +1,19 @@
 package eu.ha3.matmos.editor.edit;
 
-import eu.ha3.matmos.editor.interfaces.IFlaggable;
-import eu.ha3.matmos.jsonformat.serializable.expansion.SerialDynamic;
-import eu.ha3.matmos.jsonformat.serializable.expansion.SerialDynamicSheetIndex;
-
-import javax.swing.*;
-
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.swing.JButton;
+import javax.swing.JList;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+
+import eu.ha3.matmos.editor.interfaces.IFlaggable;
+import eu.ha3.matmos.jsonformat.serializable.expansion.SerialDynamic;
+import eu.ha3.matmos.jsonformat.serializable.expansion.SerialDynamicSheetIndex;
 
 /*
 --filenotes-placeholder

@@ -1,15 +1,13 @@
 package eu.ha3.matmos.game.gui;
 
+import java.util.Iterator;
+import java.util.List;
+
 import eu.ha3.matmos.game.data.abstractions.module.ModuleProcessor;
 import eu.ha3.matmos.game.system.MAtMod;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
-
 import net.minecraft.util.EnumChatFormatting;
-
-import java.io.IOException;
-import java.util.Iterator;
-import java.util.List;
 
 /*
 --filenotes-placeholder

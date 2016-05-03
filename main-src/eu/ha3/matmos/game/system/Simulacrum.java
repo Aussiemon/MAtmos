@@ -1,5 +1,9 @@
 package eu.ha3.matmos.game.system;
 
+import java.io.File;
+import java.util.Locale;
+import java.util.Map;
+
 import eu.ha3.easy.TimeStatistic;
 import eu.ha3.matmos.expansions.Expansion;
 import eu.ha3.matmos.expansions.ExpansionManager;
@@ -9,9 +13,6 @@ import eu.ha3.matmos.game.user.VisualDebugger;
 import eu.ha3.matmos.log.MAtLog;
 import eu.ha3.mc.haddon.supporting.SupportsFrameEvents;
 import eu.ha3.mc.haddon.supporting.SupportsTickEvents;
-import java.io.File;
-import java.util.Locale;
-import java.util.Map;
 
 public class Simulacrum implements SupportsTickEvents, SupportsFrameEvents
 {

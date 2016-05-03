@@ -1,11 +1,5 @@
 package eu.ha3.matmos.editor.edit;
 
-import eu.ha3.matmos.editor.interfaces.IFlaggable;
-import eu.ha3.matmos.jsonformat.serializable.expansion.SerialSet;
-
-import javax.swing.*;
-import javax.swing.border.TitledBorder;
-
 import java.awt.BorderLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -16,6 +10,17 @@ import java.awt.event.ActionListener;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
+
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.UIManager;
+import javax.swing.border.TitledBorder;
+
+import eu.ha3.matmos.editor.interfaces.IFlaggable;
+import eu.ha3.matmos.jsonformat.serializable.expansion.SerialSet;
 
 /*
 --filenotes-placeholder

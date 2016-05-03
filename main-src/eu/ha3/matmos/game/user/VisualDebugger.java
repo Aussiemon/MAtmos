@@ -1,5 +1,13 @@
 package eu.ha3.matmos.game.user;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+
+import org.apache.commons.lang3.StringUtils;
+import org.lwjgl.opengl.GL11;
+
 import eu.ha3.matmos.engine.core.implem.LongFloatSimplificator;
 import eu.ha3.matmos.engine.core.interfaces.Sheet;
 import eu.ha3.matmos.game.data.ModularDataGatherer;
@@ -13,13 +21,6 @@ import net.minecraft.client.gui.GuiChat;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.entity.EntityList;
 import net.minecraft.util.EnumChatFormatting;
-import org.apache.commons.lang3.StringUtils;
-import org.lwjgl.opengl.GL11;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
 
 /*
 --filenotes-placeholder

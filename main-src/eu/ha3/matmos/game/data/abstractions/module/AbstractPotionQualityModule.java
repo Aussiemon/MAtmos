@@ -1,13 +1,12 @@
 package eu.ha3.matmos.game.data.abstractions.module;
 
+import java.util.LinkedHashSet;
+import java.util.Set;
+
 import eu.ha3.matmos.engine.core.interfaces.Data;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
-
-import java.util.LinkedHashSet;
-import java.util.Set;
 
 /* x-placeholder */
 

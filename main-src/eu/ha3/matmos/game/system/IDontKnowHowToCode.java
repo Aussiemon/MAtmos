@@ -1,11 +1,11 @@
 package eu.ha3.matmos.game.system;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import eu.ha3.matmos.log.MAtLog;
 import eu.ha3.mc.quick.chat.Chatter;
 import net.minecraft.util.EnumChatFormatting;
-
-import java.util.HashSet;
-import java.util.Set;
 
 /*
 --filenotes-placeholder

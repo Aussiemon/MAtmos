@@ -1,5 +1,15 @@
 package eu.ha3.matmos.expansions;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.Locale;
+import java.util.Scanner;
+import java.util.Set;
+
 import eu.ha3.easy.TimeStatistic;
 import eu.ha3.matmos.engine.core.implem.Knowledge;
 import eu.ha3.matmos.engine.core.implem.ProviderCollection;
@@ -22,15 +32,6 @@ import eu.ha3.matmos.game.system.SoundAccessor;
 import eu.ha3.matmos.game.system.SoundHelperRelay;
 import eu.ha3.matmos.log.MAtLog;
 import eu.ha3.util.property.simple.ConfigProperty;
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Locale;
-import java.util.Scanner;
-import java.util.Set;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.FolderResourcePack;
 import net.minecraft.util.ResourceLocation;

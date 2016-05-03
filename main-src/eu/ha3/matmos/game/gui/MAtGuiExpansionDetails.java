@@ -1,5 +1,7 @@
 package eu.ha3.matmos.game.gui;
 
+import java.io.File;
+
 import eu.ha3.matmos.expansions.Expansion;
 import eu.ha3.matmos.expansions.debugunit.ExpansionDebugUnit;
 import eu.ha3.matmos.expansions.debugunit.FolderResourcePackEditableEDU;
@@ -9,14 +11,11 @@ import eu.ha3.matmos.game.debug.SoundsJsonGenerator;
 import eu.ha3.matmos.game.system.IDontKnowHowToCode;
 import eu.ha3.matmos.game.system.MAtMod;
 import eu.ha3.matmos.game.user.VisualExpansionDebugging;
-
-import net.minecraft.util.EnumChatFormatting;
-
-import java.io.File;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.ScaledResolution;
+import net.minecraft.util.EnumChatFormatting;
 
 /*
 --filenotes-placeholder

@@ -1,11 +1,11 @@
 package eu.ha3.matmos.engine.core.implem;
 
+import java.util.Random;
+
 import eu.ha3.matmos.engine.core.implem.abstractions.Provider;
 import eu.ha3.matmos.engine.core.interfaces.ReferenceTime;
 import eu.ha3.matmos.engine.core.interfaces.TimedEventInterface;
 import eu.ha3.matmos.jsonformat.serializable.expansion.SerialMachineEvent;
-
-import java.util.Random;
 
 /* x-placeholder */
 

@@ -1,5 +1,9 @@
 package eu.ha3.matmos.engine.core.implem;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
 import eu.ha3.matmos.engine.core.implem.abstractions.Component;
 import eu.ha3.matmos.engine.core.interfaces.EventInterface;
 import eu.ha3.matmos.engine.core.interfaces.SoundRelay;
@@ -7,10 +11,6 @@ import eu.ha3.matmos.log.MAtLog;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.IResourcePack;
 import net.minecraft.util.ResourceLocation;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
 
 /* x-placeholder */
 

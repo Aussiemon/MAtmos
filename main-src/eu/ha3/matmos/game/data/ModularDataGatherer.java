@@ -1,5 +1,13 @@
 package eu.ha3.matmos.game.data;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeMap;
+import java.util.TreeSet;
+
 import eu.ha3.easy.StopWatchStatistic;
 import eu.ha3.easy.TimeStatistic;
 import eu.ha3.matmos.engine.core.implem.GenericSheet;
@@ -13,12 +21,41 @@ import eu.ha3.matmos.game.data.abstractions.module.PassOnceModule;
 import eu.ha3.matmos.game.data.abstractions.module.ProcessorModel;
 import eu.ha3.matmos.game.data.abstractions.scanner.Progress;
 import eu.ha3.matmos.game.data.abstractions.scanner.ScannerModule;
-import eu.ha3.matmos.game.data.modules.*;
+import eu.ha3.matmos.game.data.modules.L__legacy;
+import eu.ha3.matmos.game.data.modules.L__legacy_column;
+import eu.ha3.matmos.game.data.modules.L__legacy_hitscan;
+import eu.ha3.matmos.game.data.modules.L__legacy_random;
+import eu.ha3.matmos.game.data.modules.L__meta_mod;
+import eu.ha3.matmos.game.data.modules.M__cb_column;
+import eu.ha3.matmos.game.data.modules.M__cb_light;
+import eu.ha3.matmos.game.data.modules.M__cb_pos;
+import eu.ha3.matmos.game.data.modules.M__gui_general;
+import eu.ha3.matmos.game.data.modules.M__ply_action;
+import eu.ha3.matmos.game.data.modules.M__ply_armor;
+import eu.ha3.matmos.game.data.modules.M__ply_general;
+import eu.ha3.matmos.game.data.modules.M__ply_inventory;
+import eu.ha3.matmos.game.data.modules.M__ply_motion;
+import eu.ha3.matmos.game.data.modules.M__ply_stats;
+import eu.ha3.matmos.game.data.modules.M__ride_general;
+import eu.ha3.matmos.game.data.modules.M__ride_horse;
+import eu.ha3.matmos.game.data.modules.M__ride_motion;
+import eu.ha3.matmos.game.data.modules.M__w_biome;
+import eu.ha3.matmos.game.data.modules.M__w_general;
+import eu.ha3.matmos.game.data.modules.M_timed_random;
+import eu.ha3.matmos.game.data.modules.R__legacy_configvars;
+import eu.ha3.matmos.game.data.modules.R__meta_option;
+import eu.ha3.matmos.game.data.modules.R__server_info;
+import eu.ha3.matmos.game.data.modules.S__detect;
+import eu.ha3.matmos.game.data.modules.S__ench_armor;
+import eu.ha3.matmos.game.data.modules.S__ench_current;
+import eu.ha3.matmos.game.data.modules.S__ply_hitscan;
+import eu.ha3.matmos.game.data.modules.S__ply_leash;
+import eu.ha3.matmos.game.data.modules.S__potion_duration;
+import eu.ha3.matmos.game.data.modules.S__potion_power;
+import eu.ha3.matmos.game.data.modules.S__scan_contact;
 import eu.ha3.matmos.game.system.IDontKnowHowToCode;
 import eu.ha3.matmos.game.system.MAtMod;
 import eu.ha3.matmos.log.MAtLog;
-
-import java.util.*;
 
 /*
 --filenotes-placeholder
