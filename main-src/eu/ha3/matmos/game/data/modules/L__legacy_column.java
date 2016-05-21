@@ -29,7 +29,7 @@ public class L__legacy_column extends ModuleProcessor implements Module
 		
 		setValue("y-1_as_number", MAtmosUtility.legacyOf(MAtmosUtility.getBlockAt(x, y - 1, z)));
 		setValue("y-2_as_number", MAtmosUtility.legacyOf(MAtmosUtility.getBlockAt(x, y - 2, z)));
-		setValue("y0_as_number", MAtmosUtility.legacyOf(MAtmosUtility.getBlockAt(x, y + 0, z)));
+		setValue("y0_as_number", MAtmosUtility.legacyOf(MAtmosUtility.getBlockAt(x, y, z)));
 		setValue("y1_as_number", MAtmosUtility.legacyOf(MAtmosUtility.getBlockAt(x, y + 1, z)));
 	}
 }

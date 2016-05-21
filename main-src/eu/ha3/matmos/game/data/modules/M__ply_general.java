@@ -8,6 +8,7 @@ import eu.ha3.mc.haddon.PrivateAccessException;
 import eu.ha3.mc.haddon.Utility;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
+import net.minecraft.item.ItemStack;
 
 /*
 --filenotes-placeholder
@@ -44,8 +45,10 @@ public class M__ply_general extends ModuleProcessor implements Module
             throw new RuntimeException(e);
         }
         setValue("on_ladder", player.isOnLadder());
+        
+        ItemStack held = player.getHeldItem();
 
-        setValue("blocking", player.isBlocking());
+        setValue("blocking", player.isBlocking() && held != null);
         setValue("sprinting", player.isSprinting());
         setValue("sneaking", player.isSneaking());
         setValue("airborne", player.isAirBorne);

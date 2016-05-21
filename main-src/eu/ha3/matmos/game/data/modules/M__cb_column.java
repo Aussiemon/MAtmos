@@ -38,7 +38,7 @@ public class M__cb_column extends ModuleProcessor implements Module
 		
 		setValue("y-1", MAtmosUtility.getNameAt(x, y - 1, z, MODULE_CONSTANTS.NO_BLOCK_OUT_OF_BOUNDS));
 		setValue("y-2", MAtmosUtility.getNameAt(x, y - 2, z, MODULE_CONSTANTS.NO_BLOCK_OUT_OF_BOUNDS));
-		setValue("y0", MAtmosUtility.getNameAt(x, y + 0, z, MODULE_CONSTANTS.NO_BLOCK_OUT_OF_BOUNDS));
+		setValue("y0", MAtmosUtility.getNameAt(x, y, z, MODULE_CONSTANTS.NO_BLOCK_OUT_OF_BOUNDS));
 		setValue("y1", MAtmosUtility.getNameAt(x, y + 1, z, MODULE_CONSTANTS.NO_BLOCK_OUT_OF_BOUNDS));
 		setValue("topmost_block", w.getTopSolidOrLiquidBlock(x, z));
 		setValue("thickness_overhead", w.getTopSolidOrLiquidBlock(x, z) - y);
